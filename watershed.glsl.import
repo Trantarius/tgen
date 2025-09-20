@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://rbb5i1h2o5f"
+path="res://.godot/imported/watershed.glsl-31fa24e417aa2d1009de0030037fca39.res"
+
+[deps]
+
+source_file="res://watershed.glsl"
+dest_files=["res://.godot/imported/watershed.glsl-31fa24e417aa2d1009de0030037fca39.res"]
+
+[params]
+
