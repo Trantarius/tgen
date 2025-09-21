@@ -12,7 +12,7 @@ func run()->Texture2DRD:
 	
 	var device:RenderingDevice = RenderingServer.get_rendering_device()
 	var texform:RDTextureFormat = RDTextureFormat.new()
-	texform.format = RenderingDevice.DATA_FORMAT_R32_SFLOAT
+	texform.format = RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT
 	texform.width = size
 	texform.height = size
 	texform.usage_bits = RenderingDevice.TEXTURE_USAGE_STORAGE_BIT | \

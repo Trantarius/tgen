@@ -206,7 +206,7 @@ layout(local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 // Prepare memory for the image, which will be both read and written to
 // `restrict` is used to tell the compiler that the memory will only be accessed
 // by the `heightmap` variable.
-layout(set=0, r32f, binding = 0) restrict writeonly uniform image2D heightmap;
+layout(set=0, rgba32f, binding = 0) restrict writeonly uniform image2D heightmap;
 
 layout(set=0, binding = 1, std430) buffer Config{
 	uint seed;
@@ -234,5 +234,5 @@ void main() {
 	}
 	//nse /= tot;
 	nse = (nse+1.0)/2.0;
-	imageStore(heightmap, coord, vec4(nse));
+	imageStore(heightmap, coord, vec4(nse,0,0,1));
 }

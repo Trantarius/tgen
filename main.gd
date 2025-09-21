@@ -1,30 +1,33 @@
-extends Control
+extends Node
 
 @export var noisegl:NoiseGL
-@export var watershedgl:WatershedGL
-@export var erosiongl:ErosionGL
+@export var flowgl:FlowGL
 
-var heightmap:Texture2DRD
-var flowmap:Texture2DRD
+var terrain:Texture2DRD
 var offhand:Texture2DRD
 
 func _ready() -> void:
-	heightmap = noisegl.run()
-	$Heightmap.texture = heightmap
+	terrain = noisegl.run()
 	
-	watershedgl.heightmap = heightmap
-	watershedgl.make_flowmaps()
-	flowmap = watershedgl.flowmap
-	offhand = watershedgl.offhand
-	$Watershed.texture = flowmap
+	offhand = flowgl.make_terrain(terrain.get_size())
+	flowgl.offhand = offhand
+	flowgl.terrain = terrain
+	flowgl.run()
 	
-	erosiongl.heightmap = heightmap
-	erosiongl.flowmap = flowmap
+	offhand = flowgl.make_terrain(terrain.get_size())
+	flowgl.offhand = offhand
+	
+	$Land.texture = terrain
+	$Water.texture = terrain
+	$Sediment.texture = terrain
+	$MeshInstance3D.material_override.set_shader_parameter("TEXTURE",terrain)
+	$MeshInstance3D2.material_override.set_shader_parameter("TEXTURE",terrain)
 	
 
 func _process(delta: float) -> void:
-	watershedgl.run()
-	erosiongl.run()
-	$Watershed.queue_redraw()
-	$Heightmap.queue_redraw()
+	for i in 1:
+		flowgl.run()
+	$Land.queue_redraw()
+	$Water.queue_redraw()
+	$Sediment.queue_redraw()
 	

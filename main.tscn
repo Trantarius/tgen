@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdmtfm0uuf5wb"]
+[gd_scene load_steps=31 format=3 uid="uid://bdmtfm0uuf5wb"]
 
 [ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://btj8b64ngg56c" path="res://watershedgl.gd" id="3_7mycd"]
+[ext_resource type="Script" uid="uid://v2ncek84cabs" path="res://flowgl.gd" id="3_7mycd"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://be4bb4tbcfvxh" path="res://noisegl.gd" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://8316c3d3eex3" path="res://erosiongl.gd" id="4_5vw27"]
 [ext_resource type="Shader" uid="uid://btghrqbmmlshi" path="res://scalar_field.gdshader" id="4_7mycd"]
-[ext_resource type="Texture2D" uid="uid://deg7j653lbb4f" path="res://gradient.tres" id="4_lquwl"]
+[ext_resource type="Shader" uid="uid://bgwg1ltofo0fj" path="res://heightmap.gdshader" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="7_272bh"]
+[ext_resource type="Script" uid="uid://ditm6xiyxpbaw" path="res://orbit_camera.gd" id="8_5vw27"]
+[ext_resource type="Shader" uid="uid://bn307p5vq576r" path="res://waterheight.gdshader" id="8_kek77"]
 
 [sub_resource type="Resource" id="Resource_h2yge"]
 script = ExtResource("4_1bvp3")
@@ -19,14 +20,27 @@ metadata/_custom_type_script = "uid://be4bb4tbcfvxh"
 
 [sub_resource type="Resource" id="Resource_272bh"]
 script = ExtResource("3_7mycd")
-evaporation = 0.1
-metadata/_custom_type_script = "uid://btj8b64ngg56c"
+precipitation = 1e-05
+evaporation = 0.001
+static_sediment_capacity = 0.001
+kinetic_sediment_capacity = 0.1
+erosion_rate = 0.1
+deposition_rate = 0.1
+sim_rate = 0.1
+metadata/_custom_type_script = "uid://v2ncek84cabs"
 
-[sub_resource type="Resource" id="Resource_kek77"]
-script = ExtResource("4_5vw27")
-erosion = 2.0
-rate = 1e-07
-metadata/_custom_type_script = "uid://8316c3d3eex3"
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_272bh"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_5vw27"]
+sky_material = SubResource("ProceduralSkyMaterial_272bh")
+
+[sub_resource type="Environment" id="Environment_kek77"]
+background_mode = 2
+sky = SubResource("Sky_5vw27")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("3_h2yge")
@@ -55,43 +69,97 @@ generate_mipmaps = false
 normalize = false
 noise = SubResource("FastNoiseLite_h2yge")
 
+[sub_resource type="Gradient" id="Gradient_272bh"]
+colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5vw27"]
+gradient = SubResource("Gradient_272bh")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
 shader = ExtResource("4_7mycd")
-shader_parameter/use_channel = 0
-shader_parameter/min_value = 5.0
-shader_parameter/max_value = 100.0
+shader_parameter/use_channel = 1
+shader_parameter/min_value = 0.0
+shader_parameter/max_value = 0.125
 shader_parameter/out_of_range_mode = 0
-shader_parameter/gradient = ExtResource("4_lquwl")
+shader_parameter/gradient = SubResource("GradientTexture1D_5vw27")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7mycd"]
+
+[sub_resource type="Gradient" id="Gradient_kek77"]
+colors = PackedColorArray(0, 1, 0, 0, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4c57u"]
+gradient = SubResource("Gradient_kek77")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efxa6"]
+shader = ExtResource("4_7mycd")
+shader_parameter/use_channel = 2
+shader_parameter/min_value = 0.0
+shader_parameter/max_value = 0.01
+shader_parameter/out_of_range_mode = 0
+shader_parameter/gradient = SubResource("GradientTexture1D_4c57u")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h2yge"]
 size = Vector2(256, 256)
 
-[node name="Main" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kek77"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4c57u"]
+noise = SubResource("FastNoiseLite_kek77")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dg77c"]
+render_priority = 0
+shader = ExtResource("7_5vw27")
+shader_parameter/TEXTURE = SubResource("NoiseTexture2D_4c57u")
+shader_parameter/min_depth = 0.0
+shader_parameter/max_depth = 1.0
+shader_parameter/displace = 0.5
+shader_parameter/use_bicubic = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ycdy4"]
+subdivide_width = 512
+subdivide_depth = 512
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4c57u"]
+render_priority = 0
+shader = ExtResource("8_kek77")
+shader_parameter/TEXTURE = SubResource("NoiseTexture2D_4c57u")
+shader_parameter/min_depth = 0.0
+shader_parameter/max_depth = 1.0
+shader_parameter/displace = 0.5
+shader_parameter/use_bicubic = true
+
+[node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
 noisegl = SubResource("Resource_h2yge")
-watershedgl = SubResource("Resource_272bh")
-erosiongl = SubResource("Resource_kek77")
+flowgl = SubResource("Resource_272bh")
 
-[node name="Heightmap" type="TextureRect" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kek77")
+
+[node name="Land" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_lquwl")
-layout_mode = 2
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("NoiseTexture2D_1bvp3")
 
-[node name="Watershed" type="TextureRect" parent="."]
+[node name="Water" type="TextureRect" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_272bh")
-layout_mode = 2
-offset_left = 780.0
-offset_right = 1036.0
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(3, 3)
+texture = SubResource("PlaceholderTexture2D_7mycd")
+
+[node name="Sediment" type="TextureRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_efxa6")
+offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_h2yge")
@@ -99,3 +167,18 @@ texture = SubResource("PlaceholderTexture2D_h2yge")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("7_272bh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_dg77c")
+mesh = SubResource("PlaneMesh_ycdy4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+material_override = SubResource("ShaderMaterial_4c57u")
+mesh = SubResource("PlaneMesh_ycdy4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+current = true
+script = ExtResource("8_5vw27")

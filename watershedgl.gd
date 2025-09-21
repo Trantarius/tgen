@@ -11,15 +11,15 @@ static var shader_file:RDShaderFile = preload("res://watershed.glsl")
 func make_flowmaps()->void:
 	var device:RenderingDevice = RenderingServer.get_rendering_device()
 	var texform:RDTextureFormat = RDTextureFormat.new()
-	texform.format = RenderingDevice.DATA_FORMAT_R32_SFLOAT
+	texform.format = RenderingDevice.DATA_FORMAT_R32G32_SFLOAT
 	texform.width = heightmap.get_width()
 	texform.height = heightmap.get_height()
 	texform.usage_bits = RenderingDevice.TEXTURE_USAGE_STORAGE_BIT | \
 		RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT | RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT | RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT
 	
 	var zeros:PackedByteArray
-	zeros.resize(4*texform.width*texform.height)
-	for i in (texform.width*texform.height):
+	zeros.resize(4*texform.width*texform.height*2)
+	for i in (texform.width*texform.height*2):
 		zeros.encode_float(i*4,0.0)
 	
 	var texrid:RID = device.texture_create(texform, RDTextureView.new(), [zeros])
