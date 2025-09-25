@@ -31,3 +31,7 @@ func _process(delta: float) -> void:
 	$Water.queue_redraw()
 	$Sediment.queue_redraw()
 	
+func _input(event: InputEvent) -> void:
+	if(event.is_action_pressed("save")):
+		var img:Image = terrain.get_image()
+		img.save_png("res://terrain.png")

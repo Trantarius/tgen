@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bdmtfm0uuf5wb"]
+[gd_scene load_steps=30 format=3 uid="uid://bdmtfm0uuf5wb"]
 
 [ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://v2ncek84cabs" path="res://flowgl.gd" id="3_7mycd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://btghrqbmmlshi" path="res://scalar_field.gdshader" id="4_7mycd"]
 [ext_resource type="Shader" uid="uid://bgwg1ltofo0fj" path="res://heightmap.gdshader" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://cu8wjgtlr07jn" path="res://terrain.png" id="8_4c57u"]
 [ext_resource type="Script" uid="uid://ditm6xiyxpbaw" path="res://orbit_camera.gd" id="8_5vw27"]
 [ext_resource type="Shader" uid="uid://bn307p5vq576r" path="res://waterheight.gdshader" id="8_kek77"]
 
@@ -102,15 +103,10 @@ shader_parameter/gradient = SubResource("GradientTexture1D_4c57u")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h2yge"]
 size = Vector2(256, 256)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_kek77"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4c57u"]
-noise = SubResource("FastNoiseLite_kek77")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dg77c"]
 render_priority = 0
 shader = ExtResource("7_5vw27")
-shader_parameter/TEXTURE = SubResource("NoiseTexture2D_4c57u")
+shader_parameter/TEXTURE = ExtResource("8_4c57u")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
 shader_parameter/displace = 0.5
@@ -123,7 +119,7 @@ subdivide_depth = 512
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4c57u"]
 render_priority = 0
 shader = ExtResource("8_kek77")
-shader_parameter/TEXTURE = SubResource("NoiseTexture2D_4c57u")
+shader_parameter/TEXTURE = ExtResource("8_4c57u")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
 shader_parameter/displace = 0.5
@@ -169,12 +165,12 @@ position = Vector2(960, 540)
 script = ExtResource("7_272bh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("ShaderMaterial_dg77c")
 mesh = SubResource("PlaneMesh_ycdy4")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251, 0)
 material_override = SubResource("ShaderMaterial_4c57u")
 mesh = SubResource("PlaneMesh_ycdy4")
 
@@ -182,3 +178,7 @@ mesh = SubResource("PlaneMesh_ycdy4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 current = true
 script = ExtResource("8_5vw27")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515147, 0.203571, -0.193113)
+visible = false

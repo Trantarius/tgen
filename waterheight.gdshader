@@ -1,7 +1,7 @@
 shader_type spatial;
 
 uniform sampler2D TEXTURE;
-uniform sampler2D waves;
+uniform sampler2D waves_tex : hint_normal, filter_linear_mipmap_anisotropic;
 uniform float min_depth=0.0;
 uniform float max_depth=1.0;
 uniform float displace=1.0;
@@ -31,7 +31,7 @@ void vertex() {
 	float hu = cu.x+cu.y+cu.z;
 	hu = displace * (hu-min_depth)/(max_depth-min_depth);
 	VERTEX.y += h;
-	NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, 1.0+texture(waves,UV).r/10.0, (hu-h)/TEXTURE_PIXEL_SIZE.y));
+	NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, 1.0, (hu-h)/TEXTURE_PIXEL_SIZE.y));
 	// Called for every vertex the material is visible on.
 }
 
@@ -47,14 +47,9 @@ void fragment() {
   	view.xyz /= view.w;
   	float linear_depth = -view.z;
 	ALPHA = 1.0-pow(0.5,(linear_depth-vdepth)*200.0);
-	//VERTEX.y += h;
-	//NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, displace, (hu-h)/TEXTURE_PIXEL_SIZE.y));
-		
-	
-	// Called for every pixel the material is visible on.
 }
 
 void light() {
-    DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR / PI/10.0;
-	SPECULAR_LIGHT += pow(clamp(dot(reflect(VIEW,NORMAL), LIGHT), 0.0, 1.0),200) * ATTENUATION * LIGHT_COLOR;
+    DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR*ALBEDO / PI/10.0;
+	SPECULAR_LIGHT += pow(clamp(dot(reflect(-VIEW,NORMAL), LIGHT), 0.0, 1.0),64) * ATTENUATION * LIGHT_COLOR*ALBEDO;
 }

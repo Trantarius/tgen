@@ -4,9 +4,9 @@ extends Resource
 var terrain:Texture2DRD
 var offhand:Texture2DRD
 @export var precipitation:float = 0.00001
-@export var evaporation:float = 0.1
+@export var evaporation:float = 0.001
 @export var static_sediment_capacity:float = 0.001
-@export var kinetic_sediment_capacity:float = 0.1
+@export var kinetic_sediment_capacity:float = 1.0
 @export var erosion_rate:float = 0.1
 @export var deposition_rate:float = 0.1
 @export var sim_rate:float = 0.1
