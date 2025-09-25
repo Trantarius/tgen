@@ -34,7 +34,7 @@ void fragment() {
 	ALBEDO = vec3(0.1,0.08,0.05);
 	//VERTEX.y += h;
 	//NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, displace, (hu-h)/TEXTURE_PIXEL_SIZE.y));
-		
-	
+
+
 	// Called for every pixel the material is visible on.
 }

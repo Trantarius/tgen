@@ -24,17 +24,25 @@ layout(set=0, binding = 2, std430) buffer Config{
 	float erosion_rate;
 	// how rapidly sediment is turned into land (proportion per time) (when sediment > capacity)
 	float deposition_rate;
+	// max slope before gravitational erosion occurs
+	float slope_of_repose;
+	// multiplier of gravitational erosion
+	float gravity_rate;
 	// multiplier for all effects
 	float sim_rate;
 } config;
 
-const ivec2 adjacent[4] = {
+const ivec2 adjacent[8] = {
 	ivec2(0,1),
 	ivec2(1,0),
 	ivec2(0,-1),
-	ivec2(-1,0)
+	ivec2(-1,0),
+	ivec2(1,1),
+	ivec2(1,-1),
+	ivec2(-1,1),
+	ivec2(-1,-1)
 };
-const int adjacent_size = 4;
+const int adjacent_size = 8;
 
 vec4 get_cell(ivec2 coord){
 	return imageLoad(terrain_old, coord)+vec4(0,config.precipitation*config.sim_rate,0,0);
@@ -64,7 +72,7 @@ float get_total_flow_out(ivec2 coord){
 			continue;
 		}
 		vec4 adj_cell = get_cell(adj_coord);
-		total_flow_out += flow_pressure(cell, adj_cell);
+		total_flow_out += flow_pressure(cell, adj_cell) / length(vec2(adjacent[i]));
 	}
 	total_flow_out *= config.sim_rate;
 	return total_flow_out;
@@ -84,7 +92,7 @@ vec2 get_flow(ivec2 coord, ivec2 dir){
 
 	float total_flow_out = get_total_flow_out(coord);
 
-	float fluid_flow = flow_pressure(cell, dir_cell)*config.sim_rate;
+	float fluid_flow = flow_pressure(cell, dir_cell)*config.sim_rate / length(vec2(dir));
 	if(total_flow_out > cell.y+cell.z){
 		float part = fluid_flow/total_flow_out;
 		fluid_flow = part*(cell.y+cell.z);
@@ -93,6 +101,26 @@ vec2 get_flow(ivec2 coord, ivec2 dir){
 		return vec2(0.0,0.0);
 	}
 	return fluid_flow * cell.yz / (cell.y+cell.z);
+}
+
+float gravity_erode(ivec2 coord){
+	vec4 cell = get_cell(coord);
+	ivec2 map_size = imageSize(terrain_old);
+
+	float total_delta = 0.0;
+	for(int i=0;i<adjacent_size;i++){
+		ivec2 adj_coord = coord + adjacent[i];
+		if(adj_coord.x<0 || adj_coord.x>=map_size.x || adj_coord.y<0 || adj_coord.y>=map_size.y){
+			continue;
+		}
+		vec4 adj_cell = get_cell(adj_coord);
+		float slope = (adj_cell.x-cell.x)/length(vec2(adjacent[i]));
+		if(abs(slope)*float(map_size.x)>config.slope_of_repose){
+			total_delta += slope;
+		}
+	}
+	total_delta *= config.sim_rate*config.gravity_rate;
+	return total_delta;
 }
 
 void main(){
@@ -132,6 +160,7 @@ void main(){
 	cell.z += sediment_delta;
 	cell.x -= sediment_delta;
 	
+	cell.x += gravity_erode(coord);
 
 	imageStore(terrain_new, coord, cell);
 }

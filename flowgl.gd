@@ -9,6 +9,8 @@ var offhand:Texture2DRD
 @export var kinetic_sediment_capacity:float = 1.0
 @export var erosion_rate:float = 0.1
 @export var deposition_rate:float = 0.1
+@export var slope_of_repose:float = 1.0
+@export var gravity_rate:float = 0.1
 @export var sim_rate:float = 0.1
 
 
@@ -59,14 +61,16 @@ func run()->void:
 	offhand_uniform2.add_id(offhand.texture_rd_rid)
 	
 	var config_bytes:PackedByteArray = PackedByteArray()
-	config_bytes.resize(28)
+	config_bytes.resize(36)
 	config_bytes.encode_float(0, precipitation)
 	config_bytes.encode_float(4, evaporation)
 	config_bytes.encode_float(8, static_sediment_capacity)
 	config_bytes.encode_float(12, kinetic_sediment_capacity)
 	config_bytes.encode_float(16, erosion_rate)
 	config_bytes.encode_float(20, deposition_rate)
-	config_bytes.encode_float(24, sim_rate)
+	config_bytes.encode_float(24, slope_of_repose)
+	config_bytes.encode_float(28, gravity_rate)
+	config_bytes.encode_float(32, sim_rate)
 	var config_buf:RID = device.storage_buffer_create(config_bytes.size(), config_bytes)
 	
 	var config_uniform:RDUniform = RDUniform.new()
