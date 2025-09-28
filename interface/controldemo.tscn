@@ -1,0 +1,1091 @@
+[gd_scene load_steps=2 format=3 uid="uid://6jwg1mg2gcba"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_w1hou"]
+
+[node name="Control" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Button"
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Button"
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Flat Button"
+flat = true
+
+[node name="Button4" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Flat Button"
+flat = true
+
+[node name="Button5" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle Button"
+
+[node name="Button6" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = true
+text = "Disabled Toggle Button"
+
+[node name="Button7" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = true
+button_pressed = true
+text = "Disabled Pressed Toggle Button"
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Checkbox"
+
+[node name="CheckBox3" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Checkbox"
+
+[node name="CheckBox4" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+text = "Disabled Pressed Checkbox"
+
+[node name="CheckBox2" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Flat Checkbox"
+flat = true
+
+[node name="CheckBox5" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Flat Checkbox"
+flat = true
+
+[node name="CheckBox6" type="CheckBox" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+text = "Disabled Flat Pressed Checkbox"
+flat = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer3"]
+layout_mode = 2
+
+[node name="CheckBox7" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Radio Checkbox"
+
+[node name="CheckBox8" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Disabled Radio Checkbox"
+
+[node name="CheckBox9" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Disabled Pressed Radio Checkbox"
+
+[node name="CheckBox10" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Flat Radio Checkbox"
+flat = true
+
+[node name="CheckBox11" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Disabled Flat Radio Checkbox"
+flat = true
+
+[node name="CheckBox12" type="CheckBox" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_w1hou")
+text = "Disabled Flat Pressed Radio Checkbox"
+flat = true
+
+[node name="PanelContainer4" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer4"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Check Button"
+
+[node name="CheckButton2" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Check Button"
+
+[node name="CheckButton3" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+text = "Disabled Pressed Check Button"
+
+[node name="CheckButton4" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Flat Check Button"
+flat = true
+
+[node name="CheckButton5" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Flat Check Button"
+flat = true
+
+[node name="CheckButton6" type="CheckButton" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+disabled = true
+button_pressed = true
+text = "Disabled Flat Pressed Check Button"
+flat = true
+
+[node name="PanelContainer5" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer5"]
+layout_mode = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Color Picker"
+
+[node name="MenuButton" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Menu Button"
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton2" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Non-Flat Menu Button"
+flat = false
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton3" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Menu Button"
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton4" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Non-Flat Menu Button"
+flat = false
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton5" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+text = "Non-Toggle Menu Button"
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton6" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+text = "Non-Toggle Non-Flat Menu Button"
+flat = false
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton8" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = false
+text = "Non-Toggle Disabled Menu Button"
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="MenuButton7" type="MenuButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = false
+text = "Non-Toggle Non-Flat Disabled Menu Button"
+flat = false
+item_count = 12
+popup/item_0/text = "Item 1"
+popup/item_0/id = 0
+popup/item_1/text = "Item 2"
+popup/item_1/id = 1
+popup/item_2/text = "Separator"
+popup/item_2/id = 10
+popup/item_2/separator = true
+popup/item_3/text = "Check Item"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+popup/item_4/text = "Checked Check Item"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 3
+popup/item_5/text = "Disabled Check Item"
+popup/item_5/checkable = 1
+popup/item_5/id = 4
+popup/item_5/disabled = true
+popup/item_6/text = "Disabled Checked Check Item"
+popup/item_6/checkable = 1
+popup/item_6/checked = true
+popup/item_6/id = 5
+popup/item_6/disabled = true
+popup/item_7/id = 11
+popup/item_7/separator = true
+popup/item_8/text = "Radio Item"
+popup/item_8/checkable = 2
+popup/item_8/id = 6
+popup/item_9/text = "Checked Radio Item"
+popup/item_9/checkable = 2
+popup/item_9/checked = true
+popup/item_9/id = 7
+popup/item_10/text = "Disabled Radio Item"
+popup/item_10/checkable = 2
+popup/item_10/id = 8
+popup/item_10/disabled = true
+popup/item_11/text = "Disabled Checked Radio Item"
+popup/item_11/checkable = 2
+popup/item_11/checked = true
+popup/item_11/id = 9
+popup/item_11/disabled = true
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+
+[node name="LinkButton" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Link Button"
+uri = "https://example.com/"
+
+[node name="LinkButton2" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Link Button"
+uri = "https://example.com/"
+
+[node name="LinkButton5" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Underline-on-Hover Link Button"
+underline = 1
+uri = "https://example.com/"
+
+[node name="LinkButton6" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Underline-on-Hover Link Button"
+underline = 1
+uri = "https://example.com/"
+
+[node name="LinkButton7" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Underline-Never Link Button"
+underline = 2
+uri = "https://example.com/"
+
+[node name="LinkButton8" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disabled Underline-Never Link Button"
+underline = 2
+uri = "https://example.com/"
+
+[node name="LinkButton3" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle Link Button"
+uri = "https://example.com/"
+
+[node name="LinkButton4" type="LinkButton" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = true
+text = "Disabled Toggle Link Button"
+uri = "https://example.com/"
+
+[node name="PanelContainer6" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Option Button (Label)"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label2" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Disabled Option Button"
+
+[node name="OptionButton2" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+disabled = true
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label3" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Flat Option Button"
+
+[node name="OptionButton3" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+flat = true
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label4" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Disabled Flat Option Button"
+
+[node name="OptionButton4" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+disabled = true
+flat = true
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label5" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Non-Toggle Option Button"
+
+[node name="OptionButton5" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label6" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Non-Toggle Disabled Option Button"
+
+[node name="OptionButton6" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = false
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label7" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Non-Toggle Flat Option Button"
+
+[node name="OptionButton7" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+flat = true
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label8" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Non-Toggle Disabled Flat Option Button"
+
+[node name="OptionButton8" type="OptionButton" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = false
+flat = true
+item_count = 3
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled Option"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="PanelContainer7" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer7"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Text Edit"
+
+[node name="TextEdit2" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Non-Editable Text Edit"
+editable = false
+
+[node name="TextEdit3" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Fancy Text Edit"
+scroll_smooth = true
+scroll_past_end_of_file = true
+minimap_draw = true
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="TextEdit4" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Fit Content Width/Height Text Edit"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="TextEdit5" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Wrapping Text Edit"
+wrap_mode = 1
+
+[node name="TextEdit6" type="TextEdit" parent="PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Fit Content Wrapping Text Edit"
+wrap_mode = 1
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="PanelContainer8" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer8"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Scroll Container"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer8/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer8/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Red or something i don't know i just need some really long text to go here"
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Green"
+
+[node name="ColorRect2" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Label3" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Blue"
+
+[node name="ColorRect3" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 1, 1)
+
+[node name="Label4" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cyan"
+
+[node name="ColorRect4" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 1, 1)
+
+[node name="Label5" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Magenta"
+
+[node name="ColorRect5" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Label6" type="Label" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Yellow"
+
+[node name="ColorRect6" type="ColorRect" parent="PanelContainer8/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Label2" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Scroll Container With Panel"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="PanelContainer8/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Red or something i don't know i just need some really long text to go here"
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Green"
+
+[node name="ColorRect2" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Label3" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Blue"
+
+[node name="ColorRect3" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 1, 1)
+
+[node name="Label4" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Cyan"
+
+[node name="ColorRect4" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 1, 1)
+
+[node name="Label5" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Magenta"
+
+[node name="ColorRect5" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Label6" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Yellow"
+
+[node name="ColorRect6" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Label3" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Never-Show Scroll Container"
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="PanelContainer8/VBoxContainer/PanelContainer2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Red or something i don't know i just need some really long text to go here"
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Green"
+
+[node name="ColorRect2" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Label3" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Blue"
+
+[node name="ColorRect3" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 1, 1)
+
+[node name="Label4" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Cyan"
+
+[node name="ColorRect4" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 1, 1, 1)
+
+[node name="Label5" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Magenta"
+
+[node name="ColorRect5" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Label6" type="Label" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Yellow"
+
+[node name="ColorRect6" type="ColorRect" parent="PanelContainer8/VBoxContainer/PanelContainer2/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Label4" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Reserve Scroll Container"
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="PanelContainer8/VBoxContainer/PanelContainer3"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 4
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer8/VBoxContainer/PanelContainer3/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Write Here To Expand"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Label5" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Always-Show  Scroll Container"
+
+[node name="PanelContainer4" type="PanelContainer" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="PanelContainer8/VBoxContainer/PanelContainer4"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer8/VBoxContainer/PanelContainer4/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Write Here To Expand"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="PanelContainer9" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer9"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer9/VBoxContainer"]
+layout_mode = 2
+text = "Item List"
+
+[node name="ItemList" type="ItemList" parent="PanelContainer9/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 6
+item_0/text = "Item 1"
+item_1/text = "Item 2"
+item_2/text = "Selectable Enabled"
+item_3/text = "Selectable Disabled"
+item_3/disabled = true
+item_4/text = "Non-Selectable Enabled"
+item_4/selectable = false
+item_5/text = "Non-Selectable Disabled"
+item_5/selectable = false
+item_5/disabled = true

@@ -14,17 +14,17 @@
 [sub_resource type="Resource" id="Resource_h2yge"]
 script = ExtResource("4_1bvp3")
 seed = null
-detail = 5
-scale = 4.0
+detail = 8
+scale = 2.0
 size = 256
 metadata/_custom_type_script = "uid://be4bb4tbcfvxh"
 
 [sub_resource type="Resource" id="Resource_272bh"]
 script = ExtResource("3_7mycd")
-precipitation = 1e-05
-evaporation = 0.001
-static_sediment_capacity = 0.001
-kinetic_sediment_capacity = 1.0
+precipitation = 2e-06
+evaporation = 1e-06
+static_sediment_capacity = 0.0
+kinetic_sediment_capacity = 0.5
 erosion_rate = 0.1
 deposition_rate = 0.1
 slope_of_repose = 3.0
@@ -36,12 +36,12 @@ metadata/_custom_type_script = "uid://v2ncek84cabs"
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_5vw27"]
+[sub_resource type="Sky" id="Sky_4c57u"]
 sky_material = SubResource("ProceduralSkyMaterial_272bh")
 
 [sub_resource type="Environment" id="Environment_kek77"]
 background_mode = 2
-sky = SubResource("Sky_5vw27")
+sky = SubResource("Sky_4c57u")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -60,7 +60,7 @@ shader_parameter/shade_high = Color(0.75, 0.75, 0.75, 1)
 shader_parameter/normal_depth = 64.0
 shader_parameter/use_bicubic = true
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_h2yge"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4c57u"]
 domain_warp_enabled = true
 domain_warp_frequency = 0.01
 domain_warp_fractal_lacunarity = 2.0
@@ -70,12 +70,12 @@ width = 256
 height = 256
 generate_mipmaps = false
 normalize = false
-noise = SubResource("FastNoiseLite_h2yge")
+noise = SubResource("FastNoiseLite_4c57u")
 
 [sub_resource type="Gradient" id="Gradient_272bh"]
 colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5vw27"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_efxa6"]
 gradient = SubResource("Gradient_272bh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
@@ -84,14 +84,14 @@ shader_parameter/use_channel = 1
 shader_parameter/min_value = 0.0
 shader_parameter/max_value = 0.125
 shader_parameter/out_of_range_mode = 0
-shader_parameter/gradient = SubResource("GradientTexture1D_5vw27")
+shader_parameter/gradient = SubResource("GradientTexture1D_efxa6")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7mycd"]
 
 [sub_resource type="Gradient" id="Gradient_kek77"]
 colors = PackedColorArray(0, 1, 0, 0, 0, 1, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4c57u"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dg77c"]
 gradient = SubResource("Gradient_kek77")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_efxa6"]
@@ -100,7 +100,7 @@ shader_parameter/use_channel = 2
 shader_parameter/min_value = 0.0
 shader_parameter/max_value = 0.01
 shader_parameter/out_of_range_mode = 0
-shader_parameter/gradient = SubResource("GradientTexture1D_4c57u")
+shader_parameter/gradient = SubResource("GradientTexture1D_dg77c")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h2yge"]
 size = Vector2(256, 256)
@@ -111,7 +111,7 @@ shader = ExtResource("7_5vw27")
 shader_parameter/TEXTURE = ExtResource("8_4c57u")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
-shader_parameter/displace = 0.5
+shader_parameter/displace = 1.0
 shader_parameter/use_bicubic = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ycdy4"]
@@ -124,7 +124,7 @@ shader = ExtResource("8_kek77")
 shader_parameter/TEXTURE = ExtResource("8_4c57u")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
-shader_parameter/displace = 0.5
+shader_parameter/displace = 1.0
 shader_parameter/use_bicubic = true
 
 [node name="Main" type="Node"]

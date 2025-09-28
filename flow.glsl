@@ -13,9 +13,9 @@ layout(set=0, rgba32f, binding = 1) restrict writeonly uniform image2D terrain_n
 //layout(set=0, rg32f, binding = 2) restrict writeonly uniform image2D flowmap;
 
 layout(set=0, binding = 2, std430) buffer Config{
-	// linear add to water per time
+	// linear add to water per time (before flow)
 	float precipitation;
-	// portional removal of water per time
+	// linear removal of water per time (after flow)
 	float evaporation;
 	// parameters determining how much sediment can be held (ie, max_sediment = static * water_amount + kinetic * water_flow_rate)
 	float static_sediment_capacity;
@@ -28,7 +28,7 @@ layout(set=0, binding = 2, std430) buffer Config{
 	float slope_of_repose;
 	// multiplier of gravitational erosion
 	float gravity_rate;
-	// multiplier for all effects
+	// multiplier for all effects (except water flow)
 	float sim_rate;
 } config;
 
@@ -74,7 +74,8 @@ float get_total_flow_out(ivec2 coord){
 		vec4 adj_cell = get_cell(adj_coord);
 		total_flow_out += flow_pressure(cell, adj_cell) / length(vec2(adjacent[i]));
 	}
-	total_flow_out *= config.sim_rate;
+	//total_flow_out *= config.sim_rate;
+	total_flow_out /= 4.0;
 	return total_flow_out;
 }
 
@@ -92,7 +93,7 @@ vec2 get_flow(ivec2 coord, ivec2 dir){
 
 	float total_flow_out = get_total_flow_out(coord);
 
-	float fluid_flow = flow_pressure(cell, dir_cell)*config.sim_rate / length(vec2(dir));
+	float fluid_flow = flow_pressure(cell, dir_cell) / length(vec2(dir)) / 4.0;
 	if(total_flow_out > cell.y+cell.z){
 		float part = fluid_flow/total_flow_out;
 		fluid_flow = part*(cell.y+cell.z);
@@ -127,6 +128,13 @@ void main(){
 	ivec2 coord = ivec2(gl_GlobalInvocationID.xy);
 	ivec2 map_size = imageSize(terrain_old);
 	vec4 cell = get_cell(coord);
+
+	if(coord.x==0 || coord.y==0 || coord.x>=map_size.x-1 || coord.y>=map_size.y-1){
+		cell.y = 0.0;
+		cell.z = 0.0;
+		imageStore(terrain_new, coord, cell);
+		return;
+	}
 	
 	float total_flow_out = get_total_flow_out(coord);
 	total_flow_out = min(total_flow_out, cell.y+cell.z);
@@ -147,8 +155,9 @@ void main(){
 	}
 
 	cell.yz += flow_in - flow_out;
-	float evap = config.evaporation*config.sim_rate*cell.y;
+	float evap = config.evaporation*config.sim_rate;
 	cell.y -= evap;
+	cell.y = max(cell.y, 0.0);
 
 	float current_capacity = cell.y * config.static_sediment_capacity + (flow_in.x + flow_out.x)/2.0 * config.kinetic_sediment_capacity;
 	float sediment_delta = current_capacity - cell.z;
