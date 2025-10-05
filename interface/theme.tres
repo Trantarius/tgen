@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=3 uid="uid://c8t6th4f4ln1h"]
+[gd_resource type="Theme" load_steps=41 format=3 uid="uid://c8t6th4f4ln1h"]
 
 [ext_resource type="StyleBox" uid="uid://brnxnkre25ao1" path="res://interface/focus_style.tres" id="1_row08"]
 [ext_resource type="StyleBox" uid="uid://dawpxmqhlv6ub" path="res://interface/hovered_style.tres" id="2_q65y7"]
@@ -46,18 +46,6 @@ texture_filter = 1
 [sub_resource type="CanvasTexture" id="CanvasTexture_s80ps"]
 diffuse_texture = ExtResource("19_s80ps")
 texture_filter = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ebyg"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pabes"]
 content_margin_left = 4.0
@@ -156,7 +144,7 @@ CheckButton/styles/disabled = ExtResource("7_8ebyg")
 CheckButton/styles/focus = ExtResource("1_row08")
 CheckButton/styles/hover = ExtResource("7_8ebyg")
 CheckButton/styles/hover_pressed = ExtResource("7_8ebyg")
-CheckButton/styles/normal = SubResource("StyleBoxFlat_8ebyg")
+CheckButton/styles/normal = ExtResource("7_8ebyg")
 CheckButton/styles/pressed = ExtResource("7_8ebyg")
 HScrollBar/styles/grabber = ExtResource("5_6vac5")
 HScrollBar/styles/grabber_highlight = ExtResource("6_rcu5t")

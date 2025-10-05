@@ -1,15 +1,16 @@
-[gd_scene load_steps=28 format=3 uid="uid://c6fjfqrjlymsq"]
+[gd_scene load_steps=29 format=3 uid="uid://c6fjfqrjlymsq"]
 
 [ext_resource type="Theme" uid="uid://c8t6th4f4ln1h" path="res://interface/theme.tres" id="1_4rbkc"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
-[ext_resource type="PackedScene" uid="uid://6fdasijlu653" path="res://interface/expandable.tscn" id="3_jllm8"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_pt1ru"]
 [ext_resource type="Shader" uid="uid://btghrqbmmlshi" path="res://scalar_field.gdshader" id="4_0noqu"]
+[ext_resource type="Script" uid="uid://88n7w3kecv4b" path="res://interface/expandable.gd" id="5_2m66s"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="5_pxv5b"]
 [ext_resource type="Shader" uid="uid://bgwg1ltofo0fj" path="res://heightmap.gdshader" id="7_ihefr"]
 [ext_resource type="Texture2D" uid="uid://cx7iqig08c0uy" path="res://terrain.exr" id="8_wjb41"]
 [ext_resource type="Shader" uid="uid://bn307p5vq576r" path="res://waterheight.gdshader" id="9_2m66s"]
 [ext_resource type="Script" uid="uid://ditm6xiyxpbaw" path="res://orbit_camera.gd" id="10_x8lwq"]
+[ext_resource type="Script" uid="uid://hred82rgtout" path="res://interface/properties/NodeInspector.gd" id="11_wjb41"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jllm8"]
 shader = ExtResource("3_pt1ru")
@@ -156,185 +157,175 @@ metadata/_tab_index = 0
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="Expandable" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options" instance=ExtResource("3_jllm8")]
+[node name="Land" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
+custom_minimum_size = Vector2(66, 31)
 layout_mode = 2
+script = ExtResource("5_2m66s")
 title = "Land"
+metadata/_custom_type_script = "uid://88n7w3kecv4b"
 
-[node name="Button" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable/HBoxContainer" index="0"]
-size_flags_horizontal = 3
-text = "Land"
-
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable/HBoxContainer" index="1"]
-layout_mode = 2
-flat = true
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Minimum Value"
 
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Maximum Value"
 
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label3" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Line Step"
 
-[node name="LineStep" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="LineStep" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label4" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Line Offset"
 
-[node name="LineOffset" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="LineOffset" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label5" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label5" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Minor Steps"
 
-[node name="Minor Steps" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Minor Steps" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label6" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label6" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Minor Opacity"
 
-[node name="Minor Opacity" type="HSlider" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Minor Opacity" type="HSlider" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Label7" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
-visible = false
-layout_mode = 2
-text = "Line Color"
-
-[node name="LineColor" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label7" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Line Color"
 
-[node name="Continuous Shade" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="LineColor" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
+visible = false
+layout_mode = 2
+text = "Line Color"
+
+[node name="Continuous Shade" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Continuous Shade"
 flat = true
 
-[node name="Label8" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label8" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Shade Low"
 
-[node name="ShadeLow" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="ShadeLow" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Shade Low"
 
-[node name="Label9" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="Label9" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Shade High"
 
-[node name="ShadeHigh" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="ShadeHigh" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Shade High"
 
-[node name="UseBicubic" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="UseBicubic" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 text = "Use Bicubic"
 flat = true
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
 visible = false
 layout_mode = 2
 
-[node name="Expandable2" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options" instance=ExtResource("3_jllm8")]
+[node name="Water" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
+custom_minimum_size = Vector2(74, 31)
 layout_mode = 2
-title = "Water
-"
+script = ExtResource("5_2m66s")
+title = "Water"
+metadata/_custom_type_script = "uid://88n7w3kecv4b"
 
-[node name="Button" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2/HBoxContainer" index="0"]
-size_flags_horizontal = 3
-text = "Water
-"
-
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2/HBoxContainer" index="1"]
-layout_mode = 2
-flat = true
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
 visible = false
 layout_mode = 2
 text = "Minimum Value"
 
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
+[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
 visible = false
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
+[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
 visible = false
 layout_mode = 2
 text = "Maximum Value"
 
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
+[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
 visible = false
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
 visible = false
 layout_mode = 2
 
-[node name="Expandable3" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options" instance=ExtResource("3_jllm8")]
+[node name="Sediment" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
+physics_interpolation_mode = 0
+light_mask = 0
+visibility_layer = 0
+custom_minimum_size = Vector2(101, 31)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+mouse_filter = 0
+script = ExtResource("5_2m66s")
 title = "Sediment"
+metadata/_custom_type_script = "uid://88n7w3kecv4b"
 
-[node name="Button" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3/HBoxContainer" index="0"]
-size_flags_horizontal = 3
-text = "Sediment"
-
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3/HBoxContainer" index="1"]
-layout_mode = 2
-flat = true
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
 visible = false
 layout_mode = 2
 text = "Minimum Value"
 
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
 visible = false
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
 visible = false
 layout_mode = 2
 text = "Maximum Value"
 
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
 visible = false
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
 visible = false
 layout_mode = 2
 
@@ -356,7 +347,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1365, 1004)
+size = Vector2i(1409, 1004)
 render_target_update_mode = 4
 
 [node name="Land" type="TextureRect" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/SubViewport"]
@@ -459,7 +450,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1377, 1004)
+size = Vector2i(2, 6)
 render_target_update_mode = 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
@@ -502,6 +493,10 @@ theme_override_constants/margin_top = 31
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[editable path="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable"]
-[editable path="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable2"]
-[editable path="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Expandable3"]
+[node name="NodeInspector" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea" node_paths=PackedStringArray("node")]
+layout_mode = 2
+horizontal_scroll_mode = 0
+script = ExtResource("11_wjb41")
+node = NodePath("../../../CenterArea/Topographical/Options/Land")
+category_whitelist = PackedStringArray("Expandable*")
+metadata/_custom_type_script = "uid://hred82rgtout"
