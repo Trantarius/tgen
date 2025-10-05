@@ -1,14 +1,11 @@
-[gd_resource type="Theme" load_steps=41 format=3 uid="uid://c8t6th4f4ln1h"]
+[gd_resource type="Theme" load_steps=50 format=3 uid="uid://c8t6th4f4ln1h"]
 
 [ext_resource type="StyleBox" uid="uid://brnxnkre25ao1" path="res://interface/focus_style.tres" id="1_row08"]
 [ext_resource type="StyleBox" uid="uid://dawpxmqhlv6ub" path="res://interface/hovered_style.tres" id="2_q65y7"]
 [ext_resource type="StyleBox" uid="uid://c4d6d52a3vwsl" path="res://interface/hover_pressed_style.tres" id="3_c1bjl"]
 [ext_resource type="StyleBox" uid="uid://qv2ohyqmt8a2" path="res://interface/foreground_style.tres" id="3_wstrs"]
 [ext_resource type="StyleBox" uid="uid://b4mk1ri458am4" path="res://interface/pressed_style.tres" id="4_ut5vn"]
-[ext_resource type="StyleBox" uid="uid://bpx0xbxfsx3eq" path="res://interface/h_scrollbar_grabber_style.tres" id="5_6vac5"]
-[ext_resource type="StyleBox" uid="uid://d16ret3n3qqke" path="res://interface/h_scrollbar_style.tres" id="5_43v5y"]
 [ext_resource type="StyleBox" uid="uid://beo2r8dsy6hqp" path="res://interface/midground_style.tres" id="5_q65y7"]
-[ext_resource type="StyleBox" uid="uid://36pdo34jmb4k" path="res://interface/h_scrollbar_grabber_highlight_style.tres" id="6_rcu5t"]
 [ext_resource type="StyleBox" uid="uid://co21wpb67aeii" path="res://interface/tab_unselected_style.tres" id="6_ut5vn"]
 [ext_resource type="StyleBox" uid="uid://cbtxc04l441qp" path="res://interface/empty_style.tres" id="7_8ebyg"]
 [ext_resource type="StyleBox" uid="uid://wfmslcyubel7" path="res://interface/tab_selected_style.tres" id="7_j1ed0"]
@@ -19,10 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bwefqv2cn2ms1" path="res://interface/radiobox_checked_disabled_texture.tres" id="10_fc1jr"]
 [ext_resource type="Texture2D" uid="uid://b3wt6x8o3me7u" path="res://interface/checkbox_unchecked_disabled_texture.tres" id="10_vgo3e"]
 [ext_resource type="Texture2D" uid="uid://bshun6pgy3shb" path="res://interface/radiobox_unchecked_texture.tres" id="11_5m21f"]
-[ext_resource type="StyleBox" uid="uid://l0fupy4v7mk2" path="res://interface/v_scrollbar_grabber_style.tres" id="11_8c0p2"]
-[ext_resource type="StyleBox" uid="uid://pidtjrb5b524" path="res://interface/v_scrollbar_style.tres" id="11_p8lc2"]
 [ext_resource type="Texture2D" uid="uid://3cf30rvvq7d4" path="res://interface/radiobox_unchecked_disabled_texture.tres" id="12_0a4kn"]
-[ext_resource type="StyleBox" uid="uid://dt0m2kfnl2ly" path="res://interface/v_scrollbar_grabber_hightlight_style.tres" id="12_c1bjl"]
 [ext_resource type="Texture2D" uid="uid://bu873yc0px72o" path="res://interface/slider_grabber_texture.tres" id="16_ci4qo"]
 [ext_resource type="Texture2D" uid="uid://sf74jd5dnapx" path="res://interface/checkbutton_on_texture.png" id="16_pabes"]
 [ext_resource type="Texture2D" uid="uid://b28qtw05ghqq4" path="res://interface/checkbutton_on_disabled_texture.png" id="17_deob3"]
@@ -30,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://cmysfmnbxr2ev" path="res://interface/slider_grabber_highlight_texture.tres" id="18_2umep"]
 [ext_resource type="Texture2D" uid="uid://133b6yiv751v" path="res://interface/checkbutton_off_texture.png" id="18_lpp0f"]
 [ext_resource type="Texture2D" uid="uid://biv6jiixm0fja" path="res://interface/checkbutton_off_disabled_texture.png" id="19_s80ps"]
+[ext_resource type="StyleBox" uid="uid://cnnj0pugoqttd" path="res://interface/border_only_style.tres" id="20_lpp0f"]
+[ext_resource type="Script" uid="uid://dl18sygnga3h3" path="res://interface/dynamic_style_box.gd" id="26_deob3"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_pabes"]
 diffuse_texture = ExtResource("16_pabes")
@@ -46,6 +42,82 @@ texture_filter = 1
 [sub_resource type="CanvasTexture" id="CanvasTexture_s80ps"]
 diffuse_texture = ExtResource("19_s80ps")
 texture_filter = 1
+
+[sub_resource type="StyleBox" id="StyleBox_5m21f"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 4.0
+content_margin_top = -1.0
+content_margin_right = 4.0
+content_margin_bottom = -1.0
+script = ExtResource("26_deob3")
+base = ExtResource("3_wstrs")
+pad_left = 0
+pad_top = -1
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 4
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_pabes"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = 3.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+script = ExtResource("26_deob3")
+base = ExtResource("2_q65y7")
+pad_left = 0
+pad_top = -1
+pad_right = 0
+pad_bottom = 0
+margin_left = 0
+margin_top = 4
+margin_right = 0
+margin_bottom = 4
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_deob3"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = 3.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+script = ExtResource("26_deob3")
+base = ExtResource("2_q65y7")
+pad_left = 0
+pad_top = -1
+pad_right = 0
+pad_bottom = 0
+margin_left = 0
+margin_top = 4
+margin_right = 0
+margin_bottom = 4
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_0a4kn"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 3.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+script = ExtResource("26_deob3")
+base = ExtResource("4_ut5vn")
+pad_left = 0
+pad_top = -1
+pad_right = 0
+pad_bottom = 0
+margin_left = 0
+margin_top = 4
+margin_right = 0
+margin_bottom = 4
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pabes"]
 content_margin_left = 4.0
@@ -112,7 +184,148 @@ border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 expand_margin_top = 1.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6h071"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.377919, 0.377919, 0.377919, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c73h4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.25098, 0.25098, 0.25098, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gx0ee"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0i0dn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.187176, 0.187176, 0.187176, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="ImageTexture" id="ImageTexture_43v5y"]
+
+[sub_resource type="StyleBox" id="StyleBox_lpp0f"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("26_deob3")
+base = ExtResource("4_ut5vn")
+pad_left = 0
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 0
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_s80ps"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 3.0
+content_margin_top = -1.0
+content_margin_right = 4.0
+content_margin_bottom = -1.0
+script = ExtResource("26_deob3")
+base = ExtResource("3_wstrs")
+pad_left = -1
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 4
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_dhsyl"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 3.0
+content_margin_top = -1.0
+content_margin_right = 4.0
+content_margin_bottom = -1.0
+script = ExtResource("26_deob3")
+base = ExtResource("2_q65y7")
+pad_left = -1
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 4
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_6h071"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 3.0
+content_margin_top = -1.0
+content_margin_right = 4.0
+content_margin_bottom = -1.0
+script = ExtResource("26_deob3")
+base = ExtResource("2_q65y7")
+pad_left = -1
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 4
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_fc1jr"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 3.0
+content_margin_top = -1.0
+content_margin_right = 4.0
+content_margin_bottom = -1.0
+script = ExtResource("26_deob3")
+base = ExtResource("4_ut5vn")
+pad_left = -1
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 4
+margin_top = 0
+margin_right = 4
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [resource]
 BoxContainer/constants/separation = 4
@@ -146,16 +359,22 @@ CheckButton/styles/hover = ExtResource("7_8ebyg")
 CheckButton/styles/hover_pressed = ExtResource("7_8ebyg")
 CheckButton/styles/normal = ExtResource("7_8ebyg")
 CheckButton/styles/pressed = ExtResource("7_8ebyg")
-HScrollBar/styles/grabber = ExtResource("5_6vac5")
-HScrollBar/styles/grabber_highlight = ExtResource("6_rcu5t")
-HScrollBar/styles/grabber_pressed = ExtResource("6_rcu5t")
-HScrollBar/styles/scroll = ExtResource("5_43v5y")
+ColorPickerButton/styles/disabled = ExtResource("20_lpp0f")
+ColorPickerButton/styles/focus = ExtResource("1_row08")
+ColorPickerButton/styles/hover = ExtResource("20_lpp0f")
+ColorPickerButton/styles/hover_pressed = ExtResource("20_lpp0f")
+ColorPickerButton/styles/normal = ExtResource("20_lpp0f")
+ColorPickerButton/styles/pressed = ExtResource("20_lpp0f")
+HScrollBar/styles/grabber = SubResource("StyleBox_5m21f")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBox_pabes")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBox_deob3")
+HScrollBar/styles/scroll = SubResource("StyleBox_0a4kn")
 HSlider/icons/grabber = ExtResource("16_ci4qo")
 HSlider/icons/grabber_disabled = ExtResource("17_mkmij")
 HSlider/icons/grabber_highlight = ExtResource("18_2umep")
 HSlider/styles/grabber_area = ExtResource("3_wstrs")
 HSlider/styles/grabber_area_highlight = ExtResource("2_q65y7")
-HSlider/styles/slider = ExtResource("5_q65y7")
+HSlider/styles/slider = ExtResource("4_ut5vn")
 ItemList/styles/focus = ExtResource("1_row08")
 ItemList/styles/hovered = SubResource("StyleBoxFlat_pabes")
 ItemList/styles/hovered_selected = SubResource("StyleBoxFlat_deob3")
@@ -187,12 +406,12 @@ PopupMenu/styles/panel = ExtResource("5_q65y7")
 PopupPanel/styles/panel = ExtResource("5_q65y7")
 ProgressBar/styles/background = ExtResource("5_q65y7")
 ProgressBar/styles/fill = ExtResource("3_wstrs")
-SpinBox/constants/buttons_vertical_separation = 1
-SpinBox/constants/field_and_buttons_separation = 1
-SpinBox/styles/down_background = ExtResource("3_wstrs")
-SpinBox/styles/down_background_disabled = ExtResource("5_q65y7")
-SpinBox/styles/down_background_hovered = ExtResource("2_q65y7")
-SpinBox/styles/down_background_pressed = ExtResource("4_ut5vn")
+SpinBox/constants/buttons_vertical_separation = 0
+SpinBox/constants/field_and_buttons_separation = -1
+SpinBox/styles/down_background = SubResource("StyleBoxFlat_6h071")
+SpinBox/styles/down_background_disabled = SubResource("StyleBoxFlat_c73h4")
+SpinBox/styles/down_background_hovered = SubResource("StyleBoxFlat_gx0ee")
+SpinBox/styles/down_background_pressed = SubResource("StyleBoxFlat_0i0dn")
 SpinBox/styles/up_background = ExtResource("3_wstrs")
 SpinBox/styles/up_background_disabled = ExtResource("5_q65y7")
 SpinBox/styles/up_background_hovered = ExtResource("2_q65y7")
@@ -209,16 +428,16 @@ TabContainer/styles/tab_hovered = ExtResource("6_ut5vn")
 TabContainer/styles/tab_selected = ExtResource("7_j1ed0")
 TabContainer/styles/tab_unselected = ExtResource("6_ut5vn")
 TextEdit/styles/focus = ExtResource("1_row08")
-TextEdit/styles/normal = ExtResource("4_ut5vn")
+TextEdit/styles/normal = SubResource("StyleBox_lpp0f")
 TextEdit/styles/read_only = ExtResource("5_q65y7")
 TooltipPanel/styles/panel = ExtResource("5_q65y7")
-VScrollBar/styles/grabber = ExtResource("11_8c0p2")
-VScrollBar/styles/grabber_highlight = ExtResource("12_c1bjl")
-VScrollBar/styles/grabber_pressed = ExtResource("12_c1bjl")
-VScrollBar/styles/scroll = ExtResource("11_p8lc2")
+VScrollBar/styles/grabber = SubResource("StyleBox_s80ps")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBox_dhsyl")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBox_6h071")
+VScrollBar/styles/scroll = SubResource("StyleBox_fc1jr")
 VSlider/icons/grabber = ExtResource("16_ci4qo")
 VSlider/icons/grabber_disabled = ExtResource("17_mkmij")
 VSlider/icons/grabber_highlight = ExtResource("18_2umep")
 VSlider/styles/grabber_area = ExtResource("3_wstrs")
 VSlider/styles/grabber_area_highlight = ExtResource("2_q65y7")
-VSlider/styles/slider = ExtResource("11_p8lc2")
+VSlider/styles/slider = ExtResource("4_ut5vn")

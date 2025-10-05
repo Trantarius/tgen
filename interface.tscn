@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c6fjfqrjlymsq"]
+[gd_scene load_steps=32 format=3 uid="uid://c6fjfqrjlymsq"]
 
 [ext_resource type="Theme" uid="uid://c8t6th4f4ln1h" path="res://interface/theme.tres" id="1_4rbkc"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
@@ -11,6 +11,8 @@
 [ext_resource type="Shader" uid="uid://bn307p5vq576r" path="res://waterheight.gdshader" id="9_2m66s"]
 [ext_resource type="Script" uid="uid://ditm6xiyxpbaw" path="res://orbit_camera.gd" id="10_x8lwq"]
 [ext_resource type="Script" uid="uid://hred82rgtout" path="res://interface/properties/NodeInspector.gd" id="11_wjb41"]
+[ext_resource type="StyleBox" uid="uid://beo2r8dsy6hqp" path="res://interface/midground_style.tres" id="11_x8lwq"]
+[ext_resource type="Script" uid="uid://dl18sygnga3h3" path="res://interface/dynamic_style_box.gd" id="12_yg014"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jllm8"]
 shader = ExtResource("3_pt1ru")
@@ -106,6 +108,25 @@ shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
 shader_parameter/displace = 1.0
 shader_parameter/use_bicubic = true
+
+[sub_resource type="StyleBox" id="StyleBox_x8lwq"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("12_yg014")
+base = ExtResource("11_x8lwq")
+pad_left = 0
+pad_top = 0
+pad_right = 0
+pad_bottom = 0
+margin_left = 0
+margin_top = 0
+margin_right = 0
+margin_bottom = 0
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [node name="Interface" type="PanelContainer"]
 anchors_preset = 15
@@ -492,11 +513,23 @@ theme_override_constants/margin_top = 31
 [node name="RightArea" type="PanelContainer" parent="VBoxContainer/HSplitContainer/MarginContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_x8lwq")
 
-[node name="NodeInspector" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea" node_paths=PackedStringArray("node")]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea"]
 layout_mode = 2
-horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="NodeInspector" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(0, 2000)
+layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
-node = NodePath("../../../CenterArea/Topographical/Options/Land")
-category_whitelist = PackedStringArray("Expandable*")
+node = NodePath("../../../../../CenterArea/Topographical/Options/Land")
 metadata/_custom_type_script = "uid://hred82rgtout"

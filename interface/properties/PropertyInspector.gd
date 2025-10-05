@@ -1,6 +1,6 @@
 @tool
 class_name PropertyInspector
-extends ScrollContainer
+extends VBoxContainer
 
 var object:Object:
 	set(to):
@@ -37,18 +37,11 @@ var object:Object:
 		skip_read_only = to
 		reset()
 
-var content:VBoxContainer
-
-func _init()->void:
-	content = VBoxContainer.new()
-	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	add_child(content)
-
 
 func reset()->void:
 	
-	for child:Node in content.get_children():
-		content.remove_child(child)
+	for child:Node in get_children():
+		remove_child(child)
 		child.queue_free()
 	
 	var pass_cat_wl:bool = category_whitelist.is_empty()
@@ -83,7 +76,7 @@ func reset()->void:
 				group = Expandable.new()
 				group.title = prop.name
 				group.indent = 16
-				content.add_child(group)
+				add_child(group)
 				group_hint=prop.hint_string
 		elif(prop.usage&PROPERTY_USAGE_SUBGROUP):
 			pass #unsupported
@@ -115,7 +108,7 @@ func reset()->void:
 					if(is_instance_valid(group)):
 						group.add_child(pnode)
 					else:
-						content.add_child(pnode)
+						add_child(pnode)
 				
 				elif(prop.type==TYPE_BOOL):
 					var pnode:BoolProperty = BoolProperty.new()
@@ -124,7 +117,7 @@ func reset()->void:
 					if(is_instance_valid(group)):
 						group.add_child(pnode)
 					else:
-						content.add_child(pnode)
+						add_child(pnode)
 				
 				elif(prop.type==TYPE_COLOR):
 					var pnode:ColorProperty = ColorProperty.new()
@@ -133,9 +126,9 @@ func reset()->void:
 					if(is_instance_valid(group)):
 						group.add_child(pnode)
 					else:
-						content.add_child(pnode)
+						add_child(pnode)
 	
-	for child:Node in content.get_children():
+	for child:Node in get_children():
 		if(child is Expandable && child.get_child_count()==0):
-			content.remove_child(child)
+			remove_child(child)
 			child.queue_free()
