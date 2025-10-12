@@ -1,13 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://c6fjfqrjlymsq"]
+[gd_scene load_steps=31 format=3 uid="uid://c6fjfqrjlymsq"]
 
 [ext_resource type="Theme" uid="uid://c8t6th4f4ln1h" path="res://interface/theme.tres" id="1_4rbkc"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_pt1ru"]
-[ext_resource type="Shader" uid="uid://btghrqbmmlshi" path="res://scalar_field.gdshader" id="4_0noqu"]
-[ext_resource type="Script" uid="uid://88n7w3kecv4b" path="res://interface/expandable.gd" id="5_2m66s"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="5_pxv5b"]
+[ext_resource type="Script" uid="uid://b7mkn2he0sliv" path="res://topographical_view.gd" id="5_yg014"]
+[ext_resource type="Shader" uid="uid://c3kcmij2pah7v" path="res://scalar_overlay.gdshader" id="6_yg014"]
 [ext_resource type="Shader" uid="uid://bgwg1ltofo0fj" path="res://heightmap.gdshader" id="7_ihefr"]
 [ext_resource type="Texture2D" uid="uid://cx7iqig08c0uy" path="res://terrain.exr" id="8_wjb41"]
+[ext_resource type="Script" uid="uid://b703gmep2rn1c" path="res://3d_view.gd" id="8_yg014"]
 [ext_resource type="Shader" uid="uid://bn307p5vq576r" path="res://waterheight.gdshader" id="9_2m66s"]
 [ext_resource type="Script" uid="uid://ditm6xiyxpbaw" path="res://orbit_camera.gd" id="10_x8lwq"]
 [ext_resource type="Script" uid="uid://hred82rgtout" path="res://interface/properties/NodeInspector.gd" id="11_wjb41"]
@@ -24,8 +25,8 @@ shader_parameter/minor_steps = 4
 shader_parameter/minor_opacity = 0.25
 shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/continuous_shade = false
-shader_parameter/shade_low = Color(0.25, 0.25, 0.25, 1)
-shader_parameter/shade_high = Color(0.75, 0.75, 0.75, 1)
+shader_parameter/shade_low = Color(0, 0, 0, 1)
+shader_parameter/shade_high = Color(1, 1, 1, 1)
 shader_parameter/normal_depth = 64.0
 shader_parameter/use_bicubic = true
 
@@ -41,35 +42,23 @@ generate_mipmaps = false
 normalize = false
 noise = SubResource("FastNoiseLite_h2yge")
 
-[sub_resource type="Gradient" id="Gradient_ihefr"]
-colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5vw27"]
-gradient = SubResource("Gradient_ihefr")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wjb41"]
-shader = ExtResource("4_0noqu")
+shader = ExtResource("6_yg014")
 shader_parameter/use_channel = 1
 shader_parameter/min_value = 0.0
 shader_parameter/max_value = 0.125
-shader_parameter/out_of_range_mode = 0
-shader_parameter/gradient = SubResource("GradientTexture1D_5vw27")
+shader_parameter/color = Color(0, 0, 1, 1)
+shader_parameter/use_bicubic = true
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2m66s"]
 
-[sub_resource type="Gradient" id="Gradient_x8lwq"]
-colors = PackedColorArray(0, 1, 0, 0, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4c57u"]
-gradient = SubResource("Gradient_x8lwq")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yg014"]
-shader = ExtResource("4_0noqu")
+shader = ExtResource("6_yg014")
 shader_parameter/use_channel = 2
 shader_parameter/min_value = 0.0
-shader_parameter/max_value = 0.01
-shader_parameter/out_of_range_mode = 0
-shader_parameter/gradient = SubResource("GradientTexture1D_4c57u")
+shader_parameter/max_value = 0.125
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/use_bicubic = true
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bmdto"]
 size = Vector2(256, 256)
@@ -93,12 +82,19 @@ shader = ExtResource("7_ihefr")
 shader_parameter/TEXTURE = ExtResource("8_wjb41")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
-shader_parameter/displace = 1.0
+shader_parameter/displacement = 1.0
 shader_parameter/use_bicubic = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gxukf"]
 subdivide_width = 512
 subdivide_depth = 512
+
+[sub_resource type="Gradient" id="Gradient_yg014"]
+offsets = PackedFloat32Array(0.891304, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0352941, 0.0705882, 0.215686, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bmdto"]
+gradient = SubResource("Gradient_yg014")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqc7l"]
 render_priority = 0
@@ -106,8 +102,9 @@ shader = ExtResource("9_2m66s")
 shader_parameter/TEXTURE = ExtResource("8_wjb41")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
-shader_parameter/displace = 1.0
+shader_parameter/displacement = 1.0
 shader_parameter/use_bicubic = true
+shader_parameter/gradient = SubResource("GradientTexture1D_bmdto")
 
 [sub_resource type="StyleBox" id="StyleBox_x8lwq"]
 resource_local_to_scene = false
@@ -118,17 +115,15 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 script = ExtResource("12_yg014")
 base = ExtResource("11_x8lwq")
-pad_left = 0
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 0
-margin_top = 0
-margin_right = 0
-margin_bottom = 0
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
-[node name="Interface" type="PanelContainer"]
+[node name="Main" type="Node"]
+
+[node name="Interface" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -137,388 +132,55 @@ grow_vertical = 2
 theme = ExtResource("1_4rbkc")
 theme_override_styles/panel = ExtResource("1_oi7g3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer"]
 layout_mode = 2
 
-[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
 item_count = 3
-item_0/text = "one"
+item_0/text = "Save"
 item_0/id = 0
-item_1/text = "two"
+item_1/text = "Load"
 item_1/id = 1
-item_2/text = "three"
+item_2/text = "Save Buffer..."
 item_2/id = 2
 
-[node name="PopupMenu2" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
 auto_translate_mode = 1
 
-[node name="PopupMenu3" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
 auto_translate_mode = 1
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 split_offset = 1520
 
-[node name="CenterArea" type="TabContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 current_tab = 0
 
-[node name="Topographical" type="HSplitContainer" parent="VBoxContainer/HSplitContainer/CenterArea"]
+[node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
 layout_mode = 2
 drag_area_margin_begin = -3
 drag_area_margin_end = -3
 drag_area_offset = 2
 metadata/_tab_index = 0
 
-[node name="Options" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical"]
-custom_minimum_size = Vector2(100, 0)
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical"]
 layout_mode = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -4
 
-[node name="Land" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
-custom_minimum_size = Vector2(66, 31)
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer"]
 layout_mode = 2
-script = ExtResource("5_2m66s")
-title = "Land"
-metadata/_custom_type_script = "uid://88n7w3kecv4b"
+horizontal_scroll_mode = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Minimum Value"
-
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Maximum Value"
-
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Line Step"
-
-[node name="LineStep" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label4" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Line Offset"
-
-[node name="LineOffset" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label5" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Minor Steps"
-
-[node name="Minor Steps" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label6" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Minor Opacity"
-
-[node name="Minor Opacity" type="HSlider" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Label7" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Line Color"
-
-[node name="LineColor" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Line Color"
-
-[node name="Continuous Shade" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Continuous Shade"
-flat = true
-
-[node name="Label8" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Shade Low"
-
-[node name="ShadeLow" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Shade Low"
-
-[node name="Label9" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Shade High"
-
-[node name="ShadeHigh" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Shade High"
-
-[node name="UseBicubic" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-text = "Use Bicubic"
-flat = true
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Land"]
-visible = false
-layout_mode = 2
-
-[node name="Water" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
-custom_minimum_size = Vector2(74, 31)
-layout_mode = 2
-script = ExtResource("5_2m66s")
-title = "Water"
-metadata/_custom_type_script = "uid://88n7w3kecv4b"
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
-visible = false
-layout_mode = 2
-text = "Minimum Value"
-
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
-visible = false
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
-visible = false
-layout_mode = 2
-text = "Maximum Value"
-
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
-visible = false
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Water"]
-visible = false
-layout_mode = 2
-
-[node name="Sediment" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options"]
-physics_interpolation_mode = 0
-light_mask = 0
-visibility_layer = 0
-custom_minimum_size = Vector2(101, 31)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.0
-mouse_filter = 0
-script = ExtResource("5_2m66s")
-title = "Sediment"
-metadata/_custom_type_script = "uid://88n7w3kecv4b"
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
-visible = false
-layout_mode = 2
-text = "Minimum Value"
-
-[node name="MinimumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
-visible = false
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
-visible = false
-layout_mode = 2
-text = "Maximum Value"
-
-[node name="MaximumValue" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
-visible = false
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Options/Sediment"]
-visible = false
-layout_mode = 2
-
-[node name="Control" type="Control" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical"]
-layout_mode = 2
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(1409, 1004)
-render_target_update_mode = 4
-
-[node name="Land" type="TextureRect" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/SubViewport"]
-material = SubResource("ShaderMaterial_jllm8")
-offset_right = 256.0
-offset_bottom = 256.0
-scale = Vector2(3, 3)
-texture = SubResource("NoiseTexture2D_5ofep")
-
-[node name="Water" type="TextureRect" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/SubViewport"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_wjb41")
-offset_right = 256.0
-offset_bottom = 256.0
-scale = Vector2(3, 3)
-texture = SubResource("PlaceholderTexture2D_2m66s")
-
-[node name="Sediment" type="TextureRect" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/SubViewport"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_yg014")
-offset_right = 256.0
-offset_bottom = 256.0
-scale = Vector2(3, 3)
-texture = SubResource("PlaceholderTexture2D_bmdto")
-
-[node name="Camera2D" type="Camera2D" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/SubViewport"]
-position = Vector2(960, 540)
-script = ExtResource("5_pxv5b")
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_top = -4.0
-offset_right = 1.0
-offset_bottom = 4.0
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="3D" type="HSplitContainer" parent="VBoxContainer/HSplitContainer/CenterArea"]
-visible = false
-layout_mode = 2
-drag_area_margin_begin = -3
-drag_area_margin_end = -3
-drag_area_offset = 2
-metadata/_tab_index = 1
-
-[node name="Options" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CenterArea/3D"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-text = "Minimum Value"
-
-[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-text = "Maximum Value"
-
-[node name="SpinBox3" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-
-[node name="Label4" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-text = "Height"
-
-[node name="SpinBox4" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-text = "Mesh Detail"
-
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Options"]
-layout_mode = 2
-text = "Use Bicubic"
-flat = true
-
-[node name="Control" type="Control" parent="VBoxContainer/HSplitContainer/CenterArea/3D"]
-layout_mode = 2
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(2, 6)
-render_target_update_mode = 0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_bmdto")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-material_override = SubResource("ShaderMaterial_chom7")
-mesh = SubResource("PlaneMesh_gxukf")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-material_override = SubResource("ShaderMaterial_xqc7l")
-mesh = SubResource("PlaneMesh_gxukf")
-
-[node name="Camera3D" type="Camera3D" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-current = true
-script = ExtResource("10_x8lwq")
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_top = -4.0
-offset_right = 1.0
-offset_bottom = 4.0
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 31
-
-[node name="RightArea" type="PanelContainer" parent="VBoxContainer/HSplitContainer/MarginContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBox_x8lwq")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -526,10 +188,185 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
-custom_minimum_size = Vector2(0, 2000)
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
-node = NodePath("../../../../../CenterArea/Topographical/Options/Land")
+node = NodePath("../../../../Control/SubViewportContainer/TopographicalView")
+category_whitelist = PackedStringArray("topographical_view.gd")
+metadata/_custom_type_script = "uid://hred82rgtout"
+
+[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical"]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer"]
+handle_input_locally = false
+scaling_3d_scale = 0.25
+size = Vector2i(1410, 1004)
+render_target_update_mode = 4
+script = ExtResource("5_yg014")
+
+[node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+material = SubResource("ShaderMaterial_jllm8")
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(3, 3)
+texture = SubResource("NoiseTexture2D_5ofep")
+
+[node name="Water" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+material = SubResource("ShaderMaterial_wjb41")
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(3, 3)
+texture = SubResource("PlaceholderTexture2D_2m66s")
+
+[node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_yg014")
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(3, 3)
+texture = SubResource("PlaceholderTexture2D_bmdto")
+
+[node name="Camera2D" type="Camera2D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+position = Vector2(960, 540)
+script = ExtResource("5_pxv5b")
+
+[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
+visible = false
+layout_mode = 2
+drag_area_margin_begin = -3
+drag_area_margin_end = -3
+drag_area_offset = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D"]
+layout_mode = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("11_wjb41")
+node = NodePath("../../../../Control/SubViewportContainer/3DView")
+category_whitelist = PackedStringArray("3d_view.gd")
+metadata/_custom_type_script = "uid://hred82rgtout"
+
+[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D"]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(2, 6)
+render_target_update_mode = 0
+script = ExtResource("8_yg014")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+environment = SubResource("Environment_bmdto")
+
+[node name="Land" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+material_override = SubResource("ShaderMaterial_chom7")
+mesh = SubResource("PlaneMesh_gxukf")
+
+[node name="Water" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+material_override = SubResource("ShaderMaterial_xqc7l")
+mesh = SubResource("PlaneMesh_gxukf")
+
+[node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+current = true
+script = ExtResource("10_x8lwq")
+
+[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 31
+
+[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_x8lwq")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("11_wjb41")
+node = NodePath("../../../../../../../..")
 metadata/_custom_type_script = "uid://hred82rgtout"

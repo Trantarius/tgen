@@ -6,13 +6,20 @@ var object:Object:
 	set(to):
 		object = to
 		reset()
+
 var property:StringName:
 	set(to):
 		property = to
 		reset()
 
+var auto_update:bool = true
+
 func _ready():
 	reset()
+
+func _process(_delta: float) -> void:
+	if(!Engine.is_editor_hint() && auto_update && is_visible_in_tree() && is_instance_valid(object) && property in object):
+		button_pressed = object.get(property)
 
 func reset()->void:
 	
@@ -20,6 +27,8 @@ func reset()->void:
 		return
 	if(!(property in object)):
 		return
+	
+	alignment = HORIZONTAL_ALIGNMENT_LEFT
 	
 	text = property.capitalize()
 	button_pressed = object.get(property)

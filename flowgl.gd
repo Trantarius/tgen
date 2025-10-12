@@ -3,10 +3,10 @@ extends Resource
 
 var terrain:Texture2DRD
 var offhand:Texture2DRD
-@export var precipitation:float = 0.000002
-@export var evaporation:float = 0.000001
-@export var static_sediment_capacity:float = 0.00
-@export var kinetic_sediment_capacity:float = 0.5
+@export var precipitation:float = 0.000001
+@export var evaporation:float = 0.0000
+@export var static_sediment_capacity:float = 0.01
+@export var kinetic_sediment_capacity:float = 0.54
 @export var erosion_rate:float = 0.1
 @export var deposition_rate:float = 0.1
 @export var slope_of_repose:float = 1.0
@@ -112,3 +112,4 @@ func run()->void:
 	var tmp:RID = terrain.texture_rd_rid
 	terrain.texture_rd_rid = offhand.texture_rd_rid
 	offhand.texture_rd_rid = tmp
+	

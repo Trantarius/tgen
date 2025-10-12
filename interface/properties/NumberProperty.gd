@@ -6,10 +6,13 @@ var object:Object:
 	set(to):
 		object = to
 		reset()
+
 var property:StringName:
 	set(to):
 		property = to
 		reset()
+
+var auto_update:bool = true
 
 var label:Label
 var spinbox:SpinBox
@@ -27,6 +30,10 @@ func _init()->void:
 
 func _ready():
 	reset()
+
+func _process(_delta: float) -> void:
+	if(!Engine.is_editor_hint() && auto_update && is_visible_in_tree() && is_instance_valid(object) && property in object):
+		spinbox.value = object.get(property)
 
 func reset()->void:
 	
@@ -49,6 +56,7 @@ func reset()->void:
 	
 	slider.editable = true
 	slider.visible = true
+	slider.scrollable = false
 	
 	var prop_dict:Dictionary
 	for pdict:Dictionary in object.get_property_list():

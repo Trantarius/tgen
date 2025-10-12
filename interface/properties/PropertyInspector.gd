@@ -37,6 +37,11 @@ var object:Object:
 		skip_read_only = to
 		reset()
 
+@export var auto_update:bool = true:
+	set(to):
+		auto_update = to
+		reset()
+
 
 func reset()->void:
 	

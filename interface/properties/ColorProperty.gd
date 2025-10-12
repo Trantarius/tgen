@@ -2,19 +2,22 @@
 class_name ColorProperty
 extends HBoxContainer
 
-@export var example:Color
-
-var object:Object = self:
+var object:Object:
 	set(to):
 		object = to
 		reset()
-var property:StringName = "example":
+
+var property:StringName:
 	set(to):
 		property = to
 		reset()
 
+var auto_update:bool = true
+
 var label:Label
 var picker:ColorPickerButton
+
+
 
 func _init() -> void:
 	label = Label.new()
@@ -27,6 +30,10 @@ func _init() -> void:
 
 func _ready():
 	reset()
+
+func _process(delta: float) -> void:
+	if(!Engine.is_editor_hint() && auto_update && is_visible_in_tree() && is_instance_valid(object) && property in object):
+		picker.color = object.get(property)
 
 func reset()->void:
 	

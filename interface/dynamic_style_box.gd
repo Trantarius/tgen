@@ -6,69 +6,37 @@ extends StyleBox
 	set(to):
 		base=to
 		emit_changed()
-@export_group("Padding","pad_")
-@export var pad_left:int:
-	set(to):
-		pad_left=to
-		content_margin_left = pad_left + margin_left
-		emit_changed()
-@export var pad_top:int:
-	set(to):
-		pad_top=to
-		content_margin_top = pad_top + margin_top
-		emit_changed()
-@export var pad_right:int:
-	set(to):
-		pad_right=to
-		content_margin_right = pad_right + margin_right
-		emit_changed()
-@export var pad_bottom:int:
-	set(to):
-		pad_bottom=to
-		content_margin_bottom = pad_bottom + margin_bottom
-		emit_changed()
 
-@export_group("Margin","margin_")
-@export var margin_left:int:
+@export_group("Offset","offset_")
+@export var offset_left:int:
 	set(to):
-		margin_left=to
-		content_margin_left = pad_left + margin_left
+		offset_left=to
 		emit_changed()
-@export var margin_top:int:
+@export var offset_top:int:
 	set(to):
-		margin_top=to
-		content_margin_top = pad_top + margin_top
+		offset_top=to
 		emit_changed()
-@export var margin_right:int:
+@export var offset_right:int:
 	set(to):
-		margin_right=to
-		content_margin_right = pad_right + margin_right
+		offset_right=to
 		emit_changed()
-@export var margin_bottom:int:
+@export var offset_bottom:int:
 	set(to):
-		margin_bottom=to
-		content_margin_bottom = pad_bottom + margin_bottom
+		offset_bottom=to
 		emit_changed()
 
 
-func _validate_property(property: Dictionary) -> void:
-	if(property.name.begins_with("content_margin_")):
-		property.usage|=PROPERTY_USAGE_READ_ONLY
-
-func pad_rect(rect: Rect2) -> Rect2:
-	return Rect2(rect.position.x+pad_left, rect.position.y+pad_top, rect.size.x-pad_left-pad_right, rect.size.y-pad_bottom-pad_top)
-
-func margin_rect(rect: Rect2) -> Rect2:
-	return Rect2(rect.position.x+margin_left, rect.position.y+margin_top, rect.size.x-margin_left-margin_right, rect.size.y-margin_bottom-margin_top)
+func offset_rect(rect: Rect2) -> Rect2:
+	return Rect2(rect.position.x+offset_left, rect.position.y+offset_top, rect.size.x-offset_left-offset_right, rect.size.y-offset_bottom-offset_top)
 
 func _get_draw_rect(rect: Rect2) -> Rect2:
-	return margin_rect(pad_rect(rect))
+	return offset_rect(rect)
 
 func _draw(to_canvas_item: RID, rect: Rect2) -> void:
 	#RenderingServer.canvas_item_add_rect(to_canvas_item, pad_rect(rect), color)
-	base.draw(to_canvas_item,pad_rect(rect))
+	base.draw(to_canvas_item,offset_rect(rect))
 
 func _test_mask(point: Vector2, rect: Rect2) -> bool:
-	if(!pad_rect(rect).has_point(point)):
+	if(!offset_rect(rect).has_point(point)):
 		return false
-	return base.test_mask(point,pad_rect(rect))
+	return base.test_mask(point,offset_rect(rect))

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=50 format=3 uid="uid://c8t6th4f4ln1h"]
+[gd_resource type="Theme" load_steps=44 format=3 uid="uid://c8t6th4f4ln1h"]
 
 [ext_resource type="StyleBox" uid="uid://brnxnkre25ao1" path="res://interface/focus_style.tres" id="1_row08"]
 [ext_resource type="StyleBox" uid="uid://dawpxmqhlv6ub" path="res://interface/hovered_style.tres" id="2_q65y7"]
@@ -43,63 +43,6 @@ texture_filter = 1
 diffuse_texture = ExtResource("19_s80ps")
 texture_filter = 1
 
-[sub_resource type="StyleBox" id="StyleBox_5m21f"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 4.0
-content_margin_top = -1.0
-content_margin_right = 4.0
-content_margin_bottom = -1.0
-script = ExtResource("26_deob3")
-base = ExtResource("3_wstrs")
-pad_left = 0
-pad_top = -1
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 4
-margin_bottom = 0
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
-[sub_resource type="StyleBox" id="StyleBox_pabes"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = 3.0
-content_margin_right = 0.0
-content_margin_bottom = 4.0
-script = ExtResource("26_deob3")
-base = ExtResource("2_q65y7")
-pad_left = 0
-pad_top = -1
-pad_right = 0
-pad_bottom = 0
-margin_left = 0
-margin_top = 4
-margin_right = 0
-margin_bottom = 4
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
-[sub_resource type="StyleBox" id="StyleBox_deob3"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = 3.0
-content_margin_right = 0.0
-content_margin_bottom = 4.0
-script = ExtResource("26_deob3")
-base = ExtResource("2_q65y7")
-pad_left = 0
-pad_top = -1
-pad_right = 0
-pad_bottom = 0
-margin_left = 0
-margin_top = 4
-margin_right = 0
-margin_bottom = 4
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
 [sub_resource type="StyleBox" id="StyleBox_0a4kn"]
 resource_local_to_scene = false
 resource_name = ""
@@ -109,14 +52,10 @@ content_margin_right = 0.0
 content_margin_bottom = 4.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-pad_left = 0
-pad_top = -1
-pad_right = 0
-pad_bottom = 0
-margin_left = 0
-margin_top = 4
-margin_right = 0
-margin_bottom = 4
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pabes"]
@@ -241,90 +180,25 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-pad_left = 0
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 0
-margin_bottom = 0
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
-[sub_resource type="StyleBox" id="StyleBox_s80ps"]
+[sub_resource type="StyleBox" id="StyleBox_d2pqn"]
 resource_local_to_scene = false
 resource_name = ""
-content_margin_left = 3.0
-content_margin_top = -1.0
-content_margin_right = 4.0
-content_margin_bottom = -1.0
-script = ExtResource("26_deob3")
-base = ExtResource("3_wstrs")
-pad_left = -1
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 4
-margin_bottom = 0
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
-[sub_resource type="StyleBox" id="StyleBox_dhsyl"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 3.0
-content_margin_top = -1.0
-content_margin_right = 4.0
-content_margin_bottom = -1.0
-script = ExtResource("26_deob3")
-base = ExtResource("2_q65y7")
-pad_left = -1
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 4
-margin_bottom = 0
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
-[sub_resource type="StyleBox" id="StyleBox_6h071"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 3.0
-content_margin_top = -1.0
-content_margin_right = 4.0
-content_margin_bottom = -1.0
-script = ExtResource("26_deob3")
-base = ExtResource("2_q65y7")
-pad_left = -1
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 4
-margin_bottom = 0
-metadata/_custom_type_script = "uid://dl18sygnga3h3"
-
-[sub_resource type="StyleBox" id="StyleBox_fc1jr"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 3.0
+content_margin_left = 4.0
 content_margin_top = -1.0
 content_margin_right = 4.0
 content_margin_bottom = -1.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-pad_left = -1
-pad_top = 0
-pad_right = 0
-pad_bottom = 0
-margin_left = 4
-margin_top = 0
-margin_right = 4
-margin_bottom = 0
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [resource]
@@ -365,9 +239,9 @@ ColorPickerButton/styles/hover = ExtResource("20_lpp0f")
 ColorPickerButton/styles/hover_pressed = ExtResource("20_lpp0f")
 ColorPickerButton/styles/normal = ExtResource("20_lpp0f")
 ColorPickerButton/styles/pressed = ExtResource("20_lpp0f")
-HScrollBar/styles/grabber = SubResource("StyleBox_5m21f")
-HScrollBar/styles/grabber_highlight = SubResource("StyleBox_pabes")
-HScrollBar/styles/grabber_pressed = SubResource("StyleBox_deob3")
+HScrollBar/styles/grabber = ExtResource("3_wstrs")
+HScrollBar/styles/grabber_highlight = ExtResource("2_q65y7")
+HScrollBar/styles/grabber_pressed = ExtResource("2_q65y7")
 HScrollBar/styles/scroll = SubResource("StyleBox_0a4kn")
 HSlider/icons/grabber = ExtResource("16_ci4qo")
 HSlider/icons/grabber_disabled = ExtResource("17_mkmij")
@@ -382,6 +256,7 @@ ItemList/styles/hovered_selected_focus = SubResource("StyleBoxFlat_lpp0f")
 ItemList/styles/panel = ExtResource("4_ut5vn")
 ItemList/styles/selected = SubResource("StyleBoxFlat_s80ps")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_dhsyl")
+Label/styles/normal = ExtResource("7_8ebyg")
 LineEdit/styles/focus = ExtResource("1_row08")
 LineEdit/styles/normal = ExtResource("4_ut5vn")
 LineEdit/styles/read_only = ExtResource("5_q65y7")
@@ -431,10 +306,10 @@ TextEdit/styles/focus = ExtResource("1_row08")
 TextEdit/styles/normal = SubResource("StyleBox_lpp0f")
 TextEdit/styles/read_only = ExtResource("5_q65y7")
 TooltipPanel/styles/panel = ExtResource("5_q65y7")
-VScrollBar/styles/grabber = SubResource("StyleBox_s80ps")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBox_dhsyl")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBox_6h071")
-VScrollBar/styles/scroll = SubResource("StyleBox_fc1jr")
+VScrollBar/styles/grabber = ExtResource("3_wstrs")
+VScrollBar/styles/grabber_highlight = ExtResource("2_q65y7")
+VScrollBar/styles/grabber_pressed = ExtResource("2_q65y7")
+VScrollBar/styles/scroll = SubResource("StyleBox_d2pqn")
 VSlider/icons/grabber = ExtResource("16_ci4qo")
 VSlider/icons/grabber_disabled = ExtResource("17_mkmij")
 VSlider/icons/grabber_highlight = ExtResource("18_2umep")

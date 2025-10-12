@@ -75,7 +75,7 @@ void fragment() {
 	}
 	s = (s-min_depth)/(max_depth-min_depth);
 	
-	COLOR.rgb = vec3(s);//mix(shade_low,shade_high,s);
+	COLOR.rgb = mix(shade_low,shade_high,s);
 
 	if(isline){
 		COLOR.rgb = mix(COLOR.rgb,line_color.rgb,line_color.a);
