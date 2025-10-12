@@ -42,6 +42,8 @@ var object:Object:
 		auto_update = to
 		reset()
 
+func _ready() -> void:
+	reset()
 
 func reset()->void:
 	

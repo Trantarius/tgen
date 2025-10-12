@@ -1,40 +1,22 @@
 shader_type spatial;
 
-uniform sampler2D TEXTURE: repeat_disable;
-uniform float min_depth=0.0;
-uniform float max_depth=1.0;
-uniform float displacement=1.0;
-uniform bool use_bicubic = true;
+#include "height_displace.gdshaderinc"
 
-#include "bicubic.gdshaderinc"
 
-vec4 textureGet(sampler2D sampler, vec2 pos){
-	if(use_bicubic){
-		return textureBicubic(sampler, pos);
-	}else{
-		return texture(sampler, pos);
-	}
-}
+uniform sampler2D depth_texture : hint_depth_texture;
+
+varying vec3 vert;
 
 void vertex() {
-	float h = textureGet(TEXTURE, UV).r;
-	h = displacement * (h-min_depth)/(max_depth-min_depth);
-	vec2 TEXTURE_PIXEL_SIZE = 1.0/vec2(textureSize(TEXTURE,0));
-	float hl = textureGet(TEXTURE, UV+vec2(-TEXTURE_PIXEL_SIZE.x,0)).r;
-	hl = displacement * (hl-min_depth)/(max_depth-min_depth);
-	float hu = textureGet(TEXTURE, UV+vec2(0,-TEXTURE_PIXEL_SIZE.y)).r;
-	hu = displacement * (hu-min_depth)/(max_depth-min_depth);
-	VERTEX.y += h;
-	NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, 1, (hu-h)/TEXTURE_PIXEL_SIZE.y));
-	// Called for every vertex the material is visible on.
+	vert = VERTEX;
+	hmap_vertex(VERTEX, UV);
 }
 
 
 void fragment() {
+	float zdepth;
+	hmap_fragment(UV, vert, TANGENT, BINORMAL, NORMAL, VIEW_MATRIX, MODEL_NORMAL_MATRIX, MODEL_MATRIX,
+	PROJECTION_MATRIX, DEPTH, zdepth);
+
 	ALBEDO = vec3(0.1,0.08,0.05);
-	//VERTEX.y += h;
-	//NORMAL = normalize(vec3((hl-h)/TEXTURE_PIXEL_SIZE.x, displace, (hu-h)/TEXTURE_PIXEL_SIZE.y));
-
-
-	// Called for every pixel the material is visible on.
 }

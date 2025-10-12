@@ -37,6 +37,7 @@ func _process(_delta: float) -> void:
 
 func reset()->void:
 	
+	
 	if(!is_instance_valid(object)):
 		return
 	if(!(property in object)):
@@ -49,10 +50,10 @@ func reset()->void:
 	spinbox.suffix = ""
 	spinbox.min_value = 0
 	spinbox.max_value = 100
-	spinbox.step = 1
+	spinbox.step = 0.01
 	spinbox.set_value_no_signal(0)
-	spinbox.allow_greater = false
-	spinbox.allow_lesser = false
+	spinbox.allow_greater = true
+	spinbox.allow_lesser = true
 	
 	slider.editable = true
 	slider.visible = true

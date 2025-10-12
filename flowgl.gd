@@ -3,15 +3,15 @@ extends Resource
 
 var terrain:Texture2DRD
 var offhand:Texture2DRD
-@export var precipitation:float = 0.000001
-@export var evaporation:float = 0.0000
-@export var static_sediment_capacity:float = 0.01
-@export var kinetic_sediment_capacity:float = 0.54
-@export var erosion_rate:float = 0.1
-@export var deposition_rate:float = 0.1
-@export var slope_of_repose:float = 1.0
-@export var gravity_rate:float = 0.1
-@export var sim_rate:float = 0.1
+var precipitation:float = 0.000001
+var evaporation:float = 0.0000
+var static_sediment_capacity:float = 0.01
+var kinetic_sediment_capacity:float = 0.5
+var erosion_rate:float = 0.1
+var deposition_rate:float = 0.1
+var slope_of_repose:float = 1.0
+var gravity_rate:float = 0.1
+var sim_rate:float = 0.1
 
 
 static var shader_file:RDShaderFile = preload("res://flow.glsl")
@@ -35,7 +35,7 @@ func make_terrain(size:Vector2i)->Texture2DRD:
 	tex.texture_rd_rid = texrid
 	return tex
 
-func run()->void:
+func run(step_count:int)->void:
 	
 	var device:RenderingDevice = RenderingServer.get_rendering_device()
 	
@@ -88,7 +88,7 @@ func run()->void:
 	var compute_list:int = device.compute_list_begin()
 	device.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	
-	for i in 100:
+	for i in step_count:
 		device.compute_list_bind_uniform_set(compute_list, uniform_set, 0)
 		device.compute_list_dispatch(compute_list, terrain.get_width()/8, terrain.get_height()/8, 1)
 		device.compute_list_add_barrier(compute_list)

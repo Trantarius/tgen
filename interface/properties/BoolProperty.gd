@@ -31,7 +31,7 @@ func reset()->void:
 	alignment = HORIZONTAL_ALIGNMENT_LEFT
 	
 	text = property.capitalize()
-	button_pressed = object.get(property)
+	set_pressed_no_signal(object.get(property))
 	
 	disabled=false
 	var prop_dict:Dictionary

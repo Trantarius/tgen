@@ -4,29 +4,39 @@ extends SubViewport
 	get:
 		return $Water.visible
 	set(to):
+		if(!has_node("Water")):
+			await ready
 		$Water.visible = to
-@export_range(0,1,0,"or_less","or_greater") var min_value:float = 0.0:
+@export_range(0,1,0.001,"or_less","or_greater") var min_value:float = 0.0:
 	get:
 		return $Land.material_override.get_shader_parameter("min_depth")
 	set(to):
+		if(!has_node("Land")||!has_node("Water")):
+			await ready
 		$Land.material_override.set_shader_parameter("min_depth",to)
 		$Water.material_override.set_shader_parameter("min_depth",to)
-@export_range(0,1,0,"or_less","or_greater") var max_value:float = 1.0:
+@export_range(0,1,0.001,"or_less","or_greater") var max_value:float = 1.0:
 	get:
 		return $Land.material_override.get_shader_parameter("max_depth")
 	set(to):
+		if(!has_node("Land")||!has_node("Water")):
+			await ready
 		$Land.material_override.set_shader_parameter("max_depth",to)
 		$Water.material_override.set_shader_parameter("max_depth",to)
-@export_range(0,1,0,"or_less","or_greater") var displacement:float = 1.0:
+@export_range(0,1,0.001,"or_less","or_greater") var displacement:float = 1.0:
 	get:
 		return $Land.material_override.get_shader_parameter("displacement")
 	set(to):
+		if(!has_node("Land")||!has_node("Water")):
+			await ready
 		$Land.material_override.set_shader_parameter("displacement",to)
 		$Water.material_override.set_shader_parameter("displacement",to)
 @export_range(16,1024,1,"or_greater","exp") var mesh_detail:int = 128:
 	get:
 		return $Land.mesh.subdivide_width
 	set(to):
+		if(!has_node("Land")||!has_node("Water")):
+			await ready
 		if(!has_node("Land")):
 			await ready
 		$Land.mesh.subdivide_width = to
@@ -35,6 +45,8 @@ extends SubViewport
 	get:
 		return $Land.material_override.get_shader_parameter("use_bicubic")
 	set(to):
+		if(!has_node("Land")||!has_node("Water")):
+			await ready
 		$Land.material_override.set_shader_parameter("use_bicubic",to)
 		$Water.material_override.set_shader_parameter("use_bicubic",to)
 

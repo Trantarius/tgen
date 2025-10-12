@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://c6fjfqrjlymsq"]
+[gd_scene load_steps=32 format=3 uid="uid://c6fjfqrjlymsq"]
 
 [ext_resource type="Theme" uid="uid://c8t6th4f4ln1h" path="res://interface/theme.tres" id="1_4rbkc"]
+[ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_bmdto"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_pt1ru"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="5_pxv5b"]
@@ -79,7 +80,7 @@ glow_enabled = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_chom7"]
 render_priority = 0
 shader = ExtResource("7_ihefr")
-shader_parameter/TEXTURE = ExtResource("8_wjb41")
+shader_parameter/height_texture = ExtResource("8_wjb41")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
 shader_parameter/displacement = 1.0
@@ -99,7 +100,7 @@ gradient = SubResource("Gradient_yg014")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqc7l"]
 render_priority = 0
 shader = ExtResource("9_2m66s")
-shader_parameter/TEXTURE = ExtResource("8_wjb41")
+shader_parameter/height_texture = ExtResource("8_wjb41")
 shader_parameter/min_depth = 0.0
 shader_parameter/max_depth = 1.0
 shader_parameter/displacement = 1.0
@@ -121,7 +122,14 @@ offset_right = 0
 offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")]
+script = ExtResource("1_bmdto")
+status_label = NodePath("Interface/VBoxContainer/HBoxContainer/StatusLabel")
+topo_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Land")
+topo_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Water")
+topo_sediment = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Sediment")
+mesh_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Land")
+mesh_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Water")
 
 [node name="Interface" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -135,10 +143,13 @@ theme_override_styles/panel = ExtResource("1_oi7g3")
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
+[node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
 item_count = 3
 item_0/text = "Save"
 item_0/id = 0
@@ -147,11 +158,17 @@ item_1/id = 1
 item_2/text = "Save Buffer..."
 item_2/id = 2
 
-[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
+[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
 auto_translate_mode = 1
 
-[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/MenuBar"]
+[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
 auto_translate_mode = 1
+
+[node name="StatusLabel" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Paused"
+horizontal_alignment = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer"]
 layout_mode = 2
@@ -160,9 +177,10 @@ split_offset = 1520
 
 [node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer"]
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
+visible = false
 layout_mode = 2
 drag_area_margin_begin = -3
 drag_area_margin_end = -3
@@ -215,9 +233,14 @@ stretch = true
 [node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer"]
 handle_input_locally = false
 scaling_3d_scale = 0.25
-size = Vector2i(1410, 1004)
-render_target_update_mode = 4
+size = Vector2i(2, 6)
+render_target_update_mode = 0
 script = ExtResource("5_yg014")
+land_max_value = 0.0
+land_line_step = 0.0
+land_minor_opacity = 0.0
+water_max_value = 0.0
+sediment_max_value = 0.0
 
 [node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
 material = SubResource("ShaderMaterial_jllm8")
@@ -256,7 +279,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
-visible = false
 layout_mode = 2
 drag_area_margin_begin = -3
 drag_area_margin_end = -3
@@ -308,8 +330,8 @@ stretch = true
 
 [node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 6)
-render_target_update_mode = 0
+size = Vector2i(1374, 1004)
+render_target_update_mode = 4
 script = ExtResource("8_yg014")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
@@ -330,7 +352,10 @@ mesh = SubResource("PlaneMesh_gxukf")
 
 [node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+projection = 2
 current = true
+size = 0.01
+near = 0.01
 script = ExtResource("10_x8lwq")
 
 [node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
@@ -369,4 +394,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
 node = NodePath("../../../../../../../..")
+blacklist = PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")
+category_whitelist = PackedStringArray("main.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
