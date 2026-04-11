@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_bmdto"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_pt1ru"]
+[ext_resource type="StyleBox" uid="uid://cnnj0pugoqttd" path="res://interface/border_only_style.tres" id="5_chom7"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="5_pxv5b"]
 [ext_resource type="Script" uid="uid://b7mkn2he0sliv" path="res://topographical_view.gd" id="5_yg014"]
 [ext_resource type="Shader" uid="uid://c3kcmij2pah7v" path="res://scalar_overlay.gdshader" id="6_yg014"]
@@ -15,6 +16,31 @@
 [ext_resource type="Script" uid="uid://hred82rgtout" path="res://interface/properties/NodeInspector.gd" id="11_wjb41"]
 [ext_resource type="StyleBox" uid="uid://beo2r8dsy6hqp" path="res://interface/midground_style.tres" id="11_x8lwq"]
 [ext_resource type="Script" uid="uid://dl18sygnga3h3" path="res://interface/dynamic_style_box.gd" id="12_yg014"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmdto"]
+
+[sub_resource type="StyleBox" id="StyleBox_chom7"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("12_yg014")
+base = ExtResource("11_x8lwq")
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_gxukf"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+script = ExtResource("12_yg014")
+base = ExtResource("5_chom7")
+offset_left = -1
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jllm8"]
 shader = ExtResource("3_pt1ru")
@@ -64,6 +90,29 @@ shader_parameter/use_bicubic = true
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bmdto"]
 size = Vector2(256, 256)
 
+[sub_resource type="StyleBox" id="StyleBox_xqc7l"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("12_yg014")
+base = ExtResource("11_x8lwq")
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
+[sub_resource type="StyleBox" id="StyleBox_gr0b1"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+script = ExtResource("12_yg014")
+base = ExtResource("5_chom7")
+offset_left = -1
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yg014"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -107,6 +156,8 @@ shader_parameter/displacement = 1.0
 shader_parameter/use_bicubic = true
 shader_parameter/gradient = SubResource("GradientTexture1D_bmdto")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_chom7"]
+
 [sub_resource type="StyleBox" id="StyleBox_x8lwq"]
 resource_local_to_scene = false
 resource_name = ""
@@ -118,14 +169,25 @@ script = ExtResource("12_yg014")
 base = ExtResource("11_x8lwq")
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
+[sub_resource type="StyleBox" id="StyleBox_4xt2l"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("12_yg014")
+base = ExtResource("11_x8lwq")
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
 [node name="Main" type="Node" unique_id=668517776 node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")]
 script = ExtResource("1_bmdto")
 status_label = NodePath("Interface/VBoxContainer/HBoxContainer/StatusLabel")
-topo_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Land")
-topo_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Water")
-topo_sediment = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Sediment")
-mesh_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Land")
-mesh_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Water")
+topo_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView/Land")
+topo_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView/Water")
+topo_sediment = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView/Sediment")
+mesh_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView/Land")
+mesh_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView/Water")
 
 [node name="Interface" type="PanelContainer" parent="." unique_id=2051455482]
 anchors_preset = 15
@@ -174,27 +236,29 @@ split_offset = 1520
 
 [node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=1766175944]
 layout_mode = 2
-current_tab = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bmdto")
+current_tab = 1
 
 [node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=1190178662]
+visible = false
 layout_mode = 2
-drag_area_margin_begin = -3
-drag_area_margin_end = -3
-drag_area_offset = 2
+theme_override_constants/separation = 0
+split_offsets = PackedInt32Array(250)
+drag_area_offset = 1
+drag_area_highlight_in_editor = true
+split_offset = 250
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=561340391]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=1802854604]
 layout_mode = 2
-theme_override_constants/margin_left = -4
-theme_override_constants/margin_top = -4
-theme_override_constants/margin_right = -5
-theme_override_constants/margin_bottom = -4
+theme_override_styles/panel = SubResource("StyleBox_chom7")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer" unique_id=211733191]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer" unique_id=211733191]
 layout_mode = 2
+theme_override_constants/scrollbar_h_separation = -1
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer" unique_id=1547370653]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer/ScrollContainer" unique_id=1547370653]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -202,58 +266,48 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer/MarginContainer" unique_id=1144964354 node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer/ScrollContainer/MarginContainer" unique_id=1144964354 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
-node = NodePath("../../../../Control/SubViewportContainer/TopographicalView")
+node = NodePath("../../../../PanelContainer2/SubViewportContainer/TopographicalView")
 category_whitelist = PackedStringArray("topographical_view.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
 
-[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=1796020611]
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer" unique_id=531148983]
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_chom7")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control" unique_id=2129001262]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer2" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=1094273797]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_gxukf")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2" unique_id=2129001262]
+layout_mode = 2
 stretch = true
 
-[node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer" unique_id=1153580157]
+[node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer" unique_id=1153580157]
 handle_input_locally = false
-scaling_3d_scale = 0.25
-size = Vector2i(1410, 1004)
-render_target_update_mode = 4
+size = Vector2i(1269, 1004)
+render_target_update_mode = 0
 script = ExtResource("5_yg014")
-land_max_value = 0.0
-land_line_step = 0.0
-land_minor_opacity = 0.0
-water_max_value = 0.0
-sediment_max_value = 0.0
 
-[node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=975882727]
+[node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=975882727]
 material = SubResource("ShaderMaterial_jllm8")
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("NoiseTexture2D_5ofep")
 
-[node name="Water" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=1632355447]
+[node name="Water" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=1632355447]
 material = SubResource("ShaderMaterial_wjb41")
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_2m66s")
 
-[node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=32388269]
-visible = false
+[node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=32388269]
 texture_filter = 1
 material = SubResource("ShaderMaterial_yg014")
 offset_right = 256.0
@@ -261,40 +315,29 @@ offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_bmdto")
 
-[node name="Camera2D" type="Camera2D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=779624777]
+[node name="Camera2D" type="Camera2D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=779624777]
 position = Vector2(960, 540)
 script = ExtResource("5_pxv5b")
 
-[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control" unique_id=801769798]
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_top = -4.0
-offset_right = 1.0
-offset_bottom = 4.0
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
 [node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=533369853]
-visible = false
 layout_mode = 2
-drag_area_margin_begin = -3
-drag_area_margin_end = -3
-drag_area_offset = 2
+theme_override_constants/separation = 0
+split_offsets = PackedInt32Array(250)
+drag_area_offset = 1
+drag_area_highlight_in_editor = true
+split_offset = 250
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=1943224228]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=220422419]
 layout_mode = 2
-theme_override_constants/margin_left = -4
-theme_override_constants/margin_top = -4
-theme_override_constants/margin_right = -5
-theme_override_constants/margin_bottom = -4
+theme_override_styles/panel = SubResource("StyleBox_xqc7l")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer" unique_id=1730922258]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer" unique_id=1730922258]
 layout_mode = 2
+theme_override_constants/scrollbar_h_separation = -1
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer" unique_id=837925579]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer/ScrollContainer" unique_id=837925579]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -302,53 +345,50 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer/MarginContainer" unique_id=1998518500 node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer/ScrollContainer/MarginContainer" unique_id=1998518500 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
-node = NodePath("../../../../Control/SubViewportContainer/3DView")
+node = NodePath("../../../../PanelContainer2/SubViewportContainer/3DView")
 category_whitelist = PackedStringArray("3d_view.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
 
-[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=2134274974]
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer" unique_id=629880917]
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_chom7")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control" unique_id=907280963]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer2" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=1616954776]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_gr0b1")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2" unique_id=907280963]
+layout_mode = 2
 stretch = true
 
-[node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer" unique_id=1832977369]
+[node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer" unique_id=1832977369]
 handle_input_locally = false
-size = Vector2i(1374, 1004)
-render_target_update_mode = 0
+size = Vector2i(1269, 1004)
+render_target_update_mode = 4
 script = ExtResource("8_yg014")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=224464294]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=224464294]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1313802418]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=1313802418]
 environment = SubResource("Environment_bmdto")
 
-[node name="Land" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=702377028]
+[node name="Land" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=702377028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("ShaderMaterial_chom7")
 mesh = SubResource("PlaneMesh_gxukf")
 
-[node name="Water" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1152908972]
+[node name="Water" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=1152908972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("ShaderMaterial_xqc7l")
 mesh = SubResource("PlaneMesh_gxukf")
 
-[node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1028481170]
+[node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=1028481170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 projection = 2
 current = true
@@ -356,30 +396,29 @@ size = 0.01
 near = 0.01
 script = ExtResource("10_x8lwq")
 
-[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control" unique_id=556152231]
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_top = -4.0
-offset_right = 1.0
-offset_bottom = 4.0
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=1993055211]
+[node name="RightArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=442020769]
 layout_mode = 2
-theme_override_constants/margin_top = 31
+theme_override_styles/panel = SubResource("StyleBoxEmpty_chom7")
+current_tab = 1
 
-[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer" unique_id=569492445]
+[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=569492445]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_x8lwq")
+metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea" unique_id=1786151928]
+[node name="Hydro" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=1235827097]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_4xt2l")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro" unique_id=1786151928]
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = -1
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer" unique_id=374957861]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro/ScrollContainer" unique_id=374957861]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -387,7 +426,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro/ScrollContainer/MarginContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -395,3 +434,8 @@ node = NodePath("../../../../../../../..")
 blacklist = PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")
 category_whitelist = PackedStringArray("main.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
+
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro" unique_id=1782728452]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_chom7")
