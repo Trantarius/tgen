@@ -48,10 +48,10 @@ func reset()->void:
 	spinbox.editable = true
 	spinbox.prefix = ""
 	spinbox.suffix = ""
+	spinbox.set_value_no_signal(0)
 	spinbox.min_value = 0
 	spinbox.max_value = 100
 	spinbox.step = 0.01
-	spinbox.set_value_no_signal(0)
 	spinbox.allow_greater = true
 	spinbox.allow_lesser = true
 	

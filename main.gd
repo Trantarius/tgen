@@ -1,3 +1,4 @@
+class_name Main
 extends Node
 
 var noisegl:NoiseGL = NoiseGL.new()
@@ -61,24 +62,19 @@ var is_paused:bool = true
 @export var mesh_land:MeshInstance3D
 @export var mesh_water:MeshInstance3D
 
-func _ready() -> void:
-	terrain = noisegl.run()
-	
-	offhand = flowgl.make_terrain(terrain.get_size())
-	flowgl.offhand = offhand
-	flowgl.terrain = terrain
-	flowgl.run(1)
-	
-	offhand = flowgl.make_terrain(terrain.get_size())
-	flowgl.offhand = offhand
-	
-	topo_land.texture = terrain
-	topo_water.texture = terrain
-	topo_sediment.texture = terrain
-	mesh_land.material_override.set_shader_parameter("height_texture",terrain)
-	mesh_water.material_override.set_shader_parameter("height_texture",terrain)
+@export var buffers:Buffers
+@export var noise_node:NoiseStage
+@export var hydro_node:Node
 
-	print("initialized")
+func _ready() -> void:
+	
+	noise_node.generate_noise()
+	
+	topo_land.texture = buffers.terrain
+	topo_water.texture = buffers.terrain
+	topo_sediment.texture = buffers.terrain
+	mesh_land.material_override.set_shader_parameter("height_texture",buffers.terrain)
+	mesh_water.material_override.set_shader_parameter("height_texture",buffers.terrain)
 	
 
 var step_count = 10

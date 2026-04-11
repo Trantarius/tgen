@@ -83,6 +83,7 @@ func reset()->void:
 				group = Expandable.new()
 				group.title = prop.name
 				group.indent = 16
+				group.reserve_min_size = true
 				add_child(group)
 				group_hint=prop.hint_string
 		elif(prop.usage&PROPERTY_USAGE_SUBGROUP):
@@ -139,3 +140,9 @@ func reset()->void:
 		if(child is Expandable && child.get_child_count()==0):
 			remove_child(child)
 			child.queue_free()
+
+func _notification(what: int) -> void:
+	if(what==NOTIFICATION_SORT_CHILDREN):
+		custom_minimum_size.x = 0
+		for child:Control in get_children():
+			custom_minimum_size.x = max(custom_minimum_size.x, child.get_combined_minimum_size().x)

@@ -16,6 +16,9 @@
 [ext_resource type="Script" uid="uid://hred82rgtout" path="res://interface/properties/NodeInspector.gd" id="11_wjb41"]
 [ext_resource type="StyleBox" uid="uid://beo2r8dsy6hqp" path="res://interface/midground_style.tres" id="11_x8lwq"]
 [ext_resource type="Script" uid="uid://dl18sygnga3h3" path="res://interface/dynamic_style_box.gd" id="12_yg014"]
+[ext_resource type="Script" uid="uid://68gkbe1b5d8d" path="res://noise.gd" id="17_gxukf"]
+[ext_resource type="Script" uid="uid://cvrrdg1jpa5td" path="res://buffers.gd" id="17_xqc7l"]
+[ext_resource type="Script" uid="uid://wv4qxuyabbug" path="res://erosion.gd" id="19_gr0b1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmdto"]
 
@@ -158,6 +161,17 @@ shader_parameter/gradient = SubResource("GradientTexture1D_bmdto")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_chom7"]
 
+[sub_resource type="StyleBox" id="StyleBox_6thx4"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("12_yg014")
+base = ExtResource("11_x8lwq")
+metadata/_custom_type_script = "uid://dl18sygnga3h3"
+
 [sub_resource type="StyleBox" id="StyleBox_x8lwq"]
 resource_local_to_scene = false
 resource_name = ""
@@ -180,7 +194,7 @@ script = ExtResource("12_yg014")
 base = ExtResource("11_x8lwq")
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
-[node name="Main" type="Node" unique_id=668517776 node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")]
+[node name="Main" type="Node" unique_id=668517776 node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water", "buffers", "noise_node")]
 script = ExtResource("1_bmdto")
 status_label = NodePath("Interface/VBoxContainer/HBoxContainer/StatusLabel")
 topo_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView/Land")
@@ -188,6 +202,8 @@ topo_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topogr
 topo_sediment = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView/Sediment")
 mesh_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView/Land")
 mesh_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView/Water")
+buffers = NodePath("Interface/VBoxContainer/HSplitContainer/RightArea/Buffers")
+noise_node = NodePath("Interface/VBoxContainer/HSplitContainer/RightArea/Noise")
 
 [node name="Interface" type="PanelContainer" parent="." unique_id=2051455482]
 anchors_preset = 15
@@ -261,12 +277,9 @@ horizontal_scroll_mode = 0
 [node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer/ScrollContainer" unique_id=1547370653]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
 
 [node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer/ScrollContainer/MarginContainer" unique_id=1144964354 node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(101, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -289,7 +302,7 @@ stretch = true
 
 [node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer" unique_id=1153580157]
 handle_input_locally = false
-size = Vector2i(1269, 1004)
+size = Vector2i(2, 2)
 render_target_update_mode = 0
 script = ExtResource("5_yg014")
 
@@ -340,12 +353,9 @@ horizontal_scroll_mode = 0
 [node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer/ScrollContainer" unique_id=837925579]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
 
 [node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer/ScrollContainer/MarginContainer" unique_id=1998518500 node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(137, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -399,43 +409,123 @@ script = ExtResource("10_x8lwq")
 [node name="RightArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=442020769]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_chom7")
-current_tab = 1
+current_tab = 2
 
-[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=569492445]
+[node name="Buffers" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=1417280472]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_6thx4")
+script = ExtResource("17_xqc7l")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" unique_id=701279657]
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = -1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers/ScrollContainer" unique_id=1464908122]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers/ScrollContainer/MarginContainer" unique_id=1882808642 node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(91, 0)
+layout_mode = 2
+script = ExtResource("11_wjb41")
+node = NodePath("../../..")
+blacklist = PackedStringArray("*tab_index")
+category_whitelist = PackedStringArray("buffers.gd")
+metadata/_custom_type_script = "uid://hred82rgtout"
+
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" unique_id=1594234193]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_chom7")
+
+[node name="Noise" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=569492445]
 visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_x8lwq")
-metadata/_tab_index = 0
-
-[node name="Hydro" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=1235827097]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBox_4xt2l")
+script = ExtResource("17_gxukf")
 metadata/_tab_index = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro" unique_id=1786151928]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" unique_id=887087373]
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = -1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer" unique_id=722842615]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer" unique_id=321711313]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer" unique_id=2129216152]
+layout_mode = 2
+
+[node name="GenerateButton" type="Button" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2136915911]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Generate"
+
+[node name="AutoButton" type="Button" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1354674597]
+layout_mode = 2
+toggle_mode = true
+text = "Auto"
+
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer" unique_id=220059042 node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+script = ExtResource("11_wjb41")
+node = NodePath("../../../..")
+blacklist = PackedStringArray("*tab_index")
+category_whitelist = PackedStringArray("noise.gd")
+metadata/_custom_type_script = "uid://hred82rgtout"
+
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" unique_id=1479890553]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_chom7")
+
+[node name="Erosion" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea" unique_id=1235827097]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_4xt2l")
+script = ExtResource("19_gr0b1")
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" unique_id=1786151928]
 layout_mode = 2
 theme_override_constants/scrollbar_h_separation = -1
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro/ScrollContainer" unique_id=374957861]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer" unique_id=374957861]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro/ScrollContainer/MarginContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer" unique_id=617854590]
+layout_mode = 2
+
+[node name="RunButton" type="Button" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1883227741]
+layout_mode = 2
+toggle_mode = true
+text = "Run"
+
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer/VBoxContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
+custom_minimum_size = Vector2(209, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
-node = NodePath("../../../../../../../..")
-blacklist = PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")
-category_whitelist = PackedStringArray("main.gd")
+node = NodePath("../../../..")
+blacklist = PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water", "*tab_index")
+category_whitelist = PackedStringArray("erosion.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
 
-[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Hydro" unique_id=1782728452]
+[node name="Panel" type="Panel" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" unique_id=1782728452]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("5_chom7")
+
+[connection signal="pressed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/GenerateButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_generate_button_pressed"]
+[connection signal="toggled" from="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/AutoButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_auto_button_toggled"]
+[connection signal="toggled" from="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer/VBoxContainer/RunButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" method="_on_run_button_toggled"]
