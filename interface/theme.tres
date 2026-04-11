@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=44 format=3 uid="uid://c8t6th4f4ln1h"]
+[gd_resource type="Theme" format=3 uid="uid://c8t6th4f4ln1h"]
 
 [ext_resource type="StyleBox" uid="uid://brnxnkre25ao1" path="res://interface/focus_style.tres" id="1_row08"]
 [ext_resource type="StyleBox" uid="uid://dawpxmqhlv6ub" path="res://interface/hovered_style.tres" id="2_q65y7"]
@@ -52,10 +52,6 @@ content_margin_right = 0.0
 content_margin_bottom = 4.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-offset_left = 0
-offset_top = 0
-offset_right = 0
-offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pabes"]
@@ -180,10 +176,6 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-offset_left = 0
-offset_top = 0
-offset_right = 0
-offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [sub_resource type="StyleBox" id="StyleBox_d2pqn"]
@@ -195,10 +187,6 @@ content_margin_right = 4.0
 content_margin_bottom = -1.0
 script = ExtResource("26_deob3")
 base = ExtResource("4_ut5vn")
-offset_left = 0
-offset_top = 0
-offset_right = 0
-offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
 [resource]

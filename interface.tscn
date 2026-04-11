@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c6fjfqrjlymsq"]
+[gd_scene format=3 uid="uid://c6fjfqrjlymsq"]
 
 [ext_resource type="Theme" uid="uid://c8t6th4f4ln1h" path="res://interface/theme.tres" id="1_4rbkc"]
 [ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_bmdto"]
@@ -26,8 +26,8 @@ shader_parameter/minor_steps = 4
 shader_parameter/minor_opacity = 0.25
 shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/continuous_shade = false
-shader_parameter/shade_low = Color(0, 0, 0, 1)
-shader_parameter/shade_high = Color(1, 1, 1, 1)
+shader_parameter/shade_low = Color(0.25, 0.25, 0.25, 1)
+shader_parameter/shade_high = Color(0.75, 0.75, 0.75, 1)
 shader_parameter/normal_depth = 64.0
 shader_parameter/use_bicubic = true
 
@@ -40,8 +40,8 @@ domain_warp_fractal_lacunarity = 2.0
 width = 256
 height = 256
 generate_mipmaps = false
-normalize = false
 noise = SubResource("FastNoiseLite_h2yge")
+normalize = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wjb41"]
 shader = ExtResource("6_yg014")
@@ -116,13 +116,9 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 script = ExtResource("12_yg014")
 base = ExtResource("11_x8lwq")
-offset_left = 0
-offset_top = 0
-offset_right = 0
-offset_bottom = 0
 metadata/_custom_type_script = "uid://dl18sygnga3h3"
 
-[node name="Main" type="Node" node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")]
+[node name="Main" type="Node" unique_id=668517776 node_paths=PackedStringArray("status_label", "topo_land", "topo_water", "topo_sediment", "mesh_land", "mesh_water")]
 script = ExtResource("1_bmdto")
 status_label = NodePath("Interface/VBoxContainer/HBoxContainer/StatusLabel")
 topo_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView/Land")
@@ -131,7 +127,7 @@ topo_sediment = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/Top
 mesh_land = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Land")
 mesh_water = NodePath("Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView/Water")
 
-[node name="Interface" type="PanelContainer" parent="."]
+[node name="Interface" type="PanelContainer" parent="." unique_id=2051455482]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -140,16 +136,16 @@ grow_vertical = 2
 theme = ExtResource("1_4rbkc")
 theme_override_styles/panel = ExtResource("1_oi7g3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface" unique_id=1597801436]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer" unique_id=1579791300]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer/HBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer/HBoxContainer" unique_id=2086594373]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
+[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=933748359]
 item_count = 3
 item_0/text = "Save"
 item_0/id = 0
@@ -158,47 +154,47 @@ item_1/id = 1
 item_2/text = "Save Buffer..."
 item_2/id = 2
 
-[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
+[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=588398055]
 auto_translate_mode = 1
 
-[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar"]
+[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=487240318]
 auto_translate_mode = 1
 
-[node name="StatusLabel" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+[node name="StatusLabel" type="Label" parent="Interface/VBoxContainer/HBoxContainer" unique_id=620391799]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Paused"
 horizontal_alignment = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer" unique_id=839365688]
 layout_mode = 2
 size_flags_vertical = 3
+split_offsets = PackedInt32Array(1520)
 split_offset = 1520
 
-[node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer"]
+[node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=1766175944]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
-[node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
-visible = false
+[node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=1190178662]
 layout_mode = 2
 drag_area_margin_begin = -3
 drag_area_margin_end = -3
 drag_area_offset = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=561340391]
 layout_mode = 2
 theme_override_constants/margin_left = -4
 theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -5
 theme_override_constants/margin_bottom = -4
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer" unique_id=211733191]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer" unique_id=1547370653]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -206,7 +202,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/MarginContainer/ScrollContainer/MarginContainer" unique_id=1144964354 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -214,10 +210,10 @@ node = NodePath("../../../../Control/SubViewportContainer/TopographicalView")
 category_whitelist = PackedStringArray("topographical_view.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
 
-[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical"]
+[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical" unique_id=1796020611]
 layout_mode = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control" unique_id=2129001262]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -230,11 +226,11 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer"]
+[node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer" unique_id=1153580157]
 handle_input_locally = false
 scaling_3d_scale = 0.25
-size = Vector2i(2, 6)
-render_target_update_mode = 0
+size = Vector2i(1410, 1004)
+render_target_update_mode = 4
 script = ExtResource("5_yg014")
 land_max_value = 0.0
 land_line_step = 0.0
@@ -242,21 +238,22 @@ land_minor_opacity = 0.0
 water_max_value = 0.0
 sediment_max_value = 0.0
 
-[node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+[node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=975882727]
 material = SubResource("ShaderMaterial_jllm8")
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("NoiseTexture2D_5ofep")
 
-[node name="Water" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+[node name="Water" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=1632355447]
 material = SubResource("ShaderMaterial_wjb41")
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_2m66s")
 
-[node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+[node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=32388269]
+visible = false
 texture_filter = 1
 material = SubResource("ShaderMaterial_yg014")
 offset_right = 256.0
@@ -264,11 +261,11 @@ offset_bottom = 256.0
 scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_bmdto")
 
-[node name="Camera2D" type="Camera2D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView"]
+[node name="Camera2D" type="Camera2D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control/SubViewportContainer/TopographicalView" unique_id=779624777]
 position = Vector2(960, 540)
 script = ExtResource("5_pxv5b")
 
-[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control"]
+[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/Control" unique_id=801769798]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -278,25 +275,26 @@ offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea"]
+[node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=533369853]
+visible = false
 layout_mode = 2
 drag_area_margin_begin = -3
 drag_area_margin_end = -3
 drag_area_offset = 2
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=1943224228]
 layout_mode = 2
 theme_override_constants/margin_left = -4
 theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -5
 theme_override_constants/margin_bottom = -4
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer" unique_id=1730922258]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer" unique_id=837925579]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -304,7 +302,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/MarginContainer/ScrollContainer/MarginContainer" unique_id=1998518500 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -312,10 +310,10 @@ node = NodePath("../../../../Control/SubViewportContainer/3DView")
 category_whitelist = PackedStringArray("3d_view.gd")
 metadata/_custom_type_script = "uid://hred82rgtout"
 
-[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D"]
+[node name="Control" type="Control" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D" unique_id=2134274974]
 layout_mode = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control" unique_id=907280963]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -328,29 +326,29 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer"]
+[node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer" unique_id=1832977369]
 handle_input_locally = false
 size = Vector2i(1374, 1004)
-render_target_update_mode = 4
+render_target_update_mode = 0
 script = ExtResource("8_yg014")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=224464294]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1313802418]
 environment = SubResource("Environment_bmdto")
 
-[node name="Land" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+[node name="Land" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=702377028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("ShaderMaterial_chom7")
 mesh = SubResource("PlaneMesh_gxukf")
 
-[node name="Water" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+[node name="Water" type="MeshInstance3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1152908972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("ShaderMaterial_xqc7l")
 mesh = SubResource("PlaneMesh_gxukf")
 
-[node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView"]
+[node name="Camera3D" type="Camera3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control/SubViewportContainer/3DView" unique_id=1028481170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 projection = 2
 current = true
@@ -358,7 +356,7 @@ size = 0.01
 near = 0.01
 script = ExtResource("10_x8lwq")
 
-[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control"]
+[node name="ColorRect" type="ColorRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/Control" unique_id=556152231]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -368,20 +366,20 @@ offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=1993055211]
 layout_mode = 2
 theme_override_constants/margin_top = 31
 
-[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer"]
+[node name="RightArea" type="PanelContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer" unique_id=569492445]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_x8lwq")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea" unique_id=1786151928]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer" unique_id=374957861]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -389,7 +387,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" node_paths=PackedStringArray("node")]
+[node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/MarginContainer/RightArea/ScrollContainer/MarginContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")

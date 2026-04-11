@@ -77,6 +77,8 @@ func _ready() -> void:
 	topo_sediment.texture = terrain
 	mesh_land.material_override.set_shader_parameter("height_texture",terrain)
 	mesh_water.material_override.set_shader_parameter("height_texture",terrain)
+
+	print("initialized")
 	
 
 var step_count = 10
