@@ -211,7 +211,10 @@ layout(set=0, rgba32f, binding = 0) restrict writeonly uniform image2D heightmap
 layout(set=0, binding = 1, std430) buffer Config{
 	uint seed;
 	int detail;
-	float scale;
+    //size of the map (on x axis)
+	float h_scale;
+    //height of noise features (ie, multiplier of perlin noise output)
+    float v_scale;
 } config;
 
 // This function is the GPU counterpart of `compute_island_cpu()` in `main.gd`.
@@ -220,7 +223,7 @@ void main() {
 	ivec2 coord = ivec2(gl_GlobalInvocationID.xy);
 	ivec2 size = imageSize(heightmap);
 	vec2 uv = vec2(coord)/vec2(size);
-	uv *= config.scale;
+	uv *= config.h_scale;
 	float att = 1.0;
 	float nse = 0.0;
 	float tot = 0.0;
@@ -234,5 +237,23 @@ void main() {
 	}
 	//nse /= tot;
 	nse = (nse+1.0)/2.0;
-	imageStore(heightmap, coord, vec4(nse,0,0,1));
+	nse *= config.v_scale;
+
+    uv = vec2(coord)/vec2(size);
+	uv *= config.h_scale;
+    att = 1.0;
+	float nse2 = 0.0;
+	tot = 0.0;
+
+	for(int oct=0;oct<config.detail;oct++){
+		nse2 += perlin2_imp(uv,randui(sd));
+		tot += 1.0/att;
+		uv*=2.0;
+		att*=2.0;
+	}
+	nse2 /= tot;
+	nse2 = (nse2+1.0)/2.0;
+
+
+	imageStore(heightmap, coord, vec4(nse,0,0,nse2));
 }

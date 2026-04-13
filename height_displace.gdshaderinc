@@ -5,8 +5,7 @@
 #endif
 
 uniform sampler2D height_texture: repeat_disable;
-uniform float min_depth=0.0;
-uniform float max_depth=1.0;
+uniform float height_offset = 0.0;
 uniform float displacement=1.0;
 uniform bool use_bicubic = true;
 
@@ -22,7 +21,7 @@ vec4 textureGet(sampler2D sampler, vec2 pos){
 
 void hmap_vertex(inout vec3 _vertex, in vec2 _uv) {
 	float h = SAMPLE_TO_HEIGHT(textureGet(height_texture, _uv));
-	h = displacement * (h-min_depth)/(max_depth-min_depth);
+	h = displacement * h + height_offset;
 	_vertex.y += h;
 }
 
@@ -33,12 +32,12 @@ in mat4 _view_matrix, in mat3 _model_normal_matrix, in mat4 _model_matrix,
 in mat4 _projection_matrix, out float _depth, out float zdepth) {
 
 	float h = SAMPLE_TO_HEIGHT(textureGet(height_texture, _uv));
-	h = displacement * (h-min_depth)/(max_depth-min_depth);
+	h = displacement * h + height_offset;
 	vec2 texture_pixel_size = 1.0/vec2(textureSize(height_texture,0));
 	float hl = SAMPLE_TO_HEIGHT(textureGet(height_texture, _uv+vec2(-texture_pixel_size.x,0)));
-	hl = displacement * (hl-min_depth)/(max_depth-min_depth);
+	hl = displacement * hl + height_offset;
 	float hu = SAMPLE_TO_HEIGHT(textureGet(height_texture, _uv+vec2(0,-texture_pixel_size.y)));
-	hu = displacement * (hu-min_depth)/(max_depth-min_depth);
+	hu = displacement * hu + height_offset;
 
 	vec3 vertex = _vary_vert;
 

@@ -17,19 +17,22 @@ layout(set=0, binding = 2, std430) buffer Config{
 	float precipitation;
 	// linear removal of water per time (after flow)
 	float evaporation;
-	// parameters determining how much sediment can be held (ie, max_sediment = static * water_amount + kinetic * water_flow_rate)
-	float static_sediment_capacity;
-	float kinetic_sediment_capacity;
-	// how rapidly land is turned into sediment (proportion per time) (when sediment < capacity)
+	// minimum water amount for full evaporation (ie, if water_amount < threshold, evaporation is reduced proportionally)
+	float evaporation_threshold;
+	// parameters determining how much sediment can be held (ie, max_sediment = capacity * water_flow_rate)
+	float sediment_capacity;
+	// how quickly sediment diffuses through water
+	//float sediment_diffusion;
+	// how rapidly land is turned into sediment or vice versa (proportion per time)
 	float erosion_rate;
-	// how rapidly sediment is turned into land (proportion per time) (when sediment > capacity)
-	float deposition_rate;
 	// max slope before gravitational erosion occurs
 	float slope_of_repose;
 	// multiplier of gravitational erosion
 	float gravity_rate;
-	// multiplier for all effects (except water flow)
+	// multiplier for all effects
 	float sim_rate;
+	//size of the map (on x axis)
+	float map_scale;
 } config;
 
 const ivec2 adjacent[8] = {
@@ -48,21 +51,16 @@ vec4 get_cell(ivec2 coord){
 	return imageLoad(terrain_old, coord)+vec4(0,config.precipitation*config.sim_rate,0,0);
 }
 
-float flow_pressure(vec4 cell_a, vec4 cell_b){
+float flowrate_a_to_b(vec4 cell_a, vec4 cell_b){
 	float alt_a = cell_a.x+cell_a.y+cell_a.z;
 	float alt_b = cell_b.x+cell_b.y+cell_b.z;
-	if(alt_a<alt_b){
-		return 0.0;
-	}
-	float fluid_a = cell_a.y+cell_a.z;
-	float fluid_b = cell_b.y+cell_b.z;
-	float top_fluid = min(fluid_a, alt_a-alt_b);
-	float fluid_interface = max(alt_b-max(cell_a.x,cell_b.x),0);
-	return top_fluid/2.0 + top_fluid*fluid_interface;
+	float top_fluid = max(min(cell_a.y+cell_a.z, (alt_a-alt_b)/2.0), -(cell_b.y+cell_b.z));
+
+	return top_fluid/6.82; //6.82 = 4 + 4/sqrt(2) (ie, sum of length of adjacent vectors)
 }
 
 //does NOT consider if the returned amount is actually available to flow
-float get_total_flow_out(ivec2 coord){
+float flowrate_out(ivec2 coord){
 	vec4 cell = get_cell(coord);
 	ivec2 map_size = imageSize(terrain_old);
 	float total_flow_out = 0.0;
@@ -72,10 +70,8 @@ float get_total_flow_out(ivec2 coord){
 			continue;
 		}
 		vec4 adj_cell = get_cell(adj_coord);
-		total_flow_out += flow_pressure(cell, adj_cell) / length(vec2(adjacent[i]));
+		total_flow_out += flowrate_a_to_b(cell, adj_cell) / length(vec2(adjacent[i]));
 	}
-	//total_flow_out *= config.sim_rate;
-	total_flow_out /= 4.0;
 	return total_flow_out;
 }
 
@@ -91,15 +87,15 @@ vec2 get_flow(ivec2 coord, ivec2 dir){
 	}
 	vec4 dir_cell = get_cell(dir_coord);
 
-	float total_flow_out = get_total_flow_out(coord);
+	float fluid_flow = flowrate_a_to_b(cell, dir_cell) / length(vec2(dir));
+	if(fluid_flow<=0.0){
+		return vec2(0.0,0.0);
+	}
+	float total_flow_out = flowrate_out(coord);
 
-	float fluid_flow = flow_pressure(cell, dir_cell) / length(vec2(dir)) / 4.0;
 	if(total_flow_out > cell.y+cell.z){
 		float part = fluid_flow/total_flow_out;
 		fluid_flow = part*(cell.y+cell.z);
-	}
-	if(fluid_flow<=0.0){
-		return vec2(0.0,0.0);
 	}
 	return fluid_flow * cell.yz / (cell.y+cell.z);
 }
@@ -107,6 +103,8 @@ vec2 get_flow(ivec2 coord, ivec2 dir){
 float gravity_erode(ivec2 coord){
 	vec4 cell = get_cell(coord);
 	ivec2 map_size = imageSize(terrain_old);
+	float repose = config.slope_of_repose * (cell.w + 0.5);
+	float slope_repose_px = repose * config.map_scale / float(map_size.x);
 
 	float total_delta = 0.0;
 	for(int i=0;i<adjacent_size;i++){
@@ -115,9 +113,10 @@ float gravity_erode(ivec2 coord){
 			continue;
 		}
 		vec4 adj_cell = get_cell(adj_coord);
-		float slope = (adj_cell.x-cell.x)/length(vec2(adjacent[i]));
-		if(abs(slope)*float(map_size.x)>config.slope_of_repose){
-			total_delta += slope;
+		float slope_px = (adj_cell.x-cell.x)/length(vec2(adjacent[i]));
+		float slope = slope_px * float(map_size.x) / config.map_scale;
+		if(abs(slope)>repose){
+			total_delta += slope_px - sign(slope_px)*slope_repose_px;
 		}
 	}
 	total_delta *= config.sim_rate*config.gravity_rate;
@@ -129,45 +128,57 @@ void main(){
 	ivec2 map_size = imageSize(terrain_old);
 	vec4 cell = get_cell(coord);
 
-	if(coord.x==0 || coord.y==0 || coord.x>=map_size.x-1 || coord.y>=map_size.y-1){
+	if(false &&(coord.x==0 || coord.y==0 || coord.x>=map_size.x-1 || coord.y>=map_size.y-1)){
 		cell.y = 0.0;
 		cell.z = 0.0;
-		imageStore(terrain_new, coord, cell);
-		return;
 	}
-	
-	float total_flow_out = get_total_flow_out(coord);
-	total_flow_out = min(total_flow_out, cell.y+cell.z);
-	vec2 flow_out;
-	if(total_flow_out<=0.0){
-		flow_out = vec2(0.0);
-	}else{
-		flow_out = total_flow_out * cell.yz / (cell.y+cell.z);
-	}
+	else{
 
-	vec2 flow_in = vec2(0.0);
-	for(int i=0;i<adjacent_size;i++){
-		ivec2 adj_coord = coord + adjacent[i];
-		if(adj_coord.x<0 || adj_coord.x>=map_size.x || adj_coord.y<0 || adj_coord.y>=map_size.y){
-			continue;
+		vec2 flow_in= vec2(0.0);
+		vec2 flow_out= vec2(0.0);
+		for(int i=0;i<adjacent_size;i++){
+			ivec2 adj_coord = coord + adjacent[i];
+			if(adj_coord.x<0 || adj_coord.x>=map_size.x || adj_coord.y<0 || adj_coord.y>=map_size.y){
+				continue;
+			}
+			vec4 adj_cell = get_cell(adj_coord);
+			float rate = flowrate_a_to_b(adj_cell, cell) / length(vec2(adjacent[i]));
+			if(rate<=0.0){
+				flow_out += -rate * cell.yz / (cell.y+cell.z);
+			}else{
+				flow_in += rate * adj_cell.yz / (adj_cell.y+adj_cell.z);
+			}
 		}
-		flow_in += get_flow(adj_coord, -adjacent[i]);
-	}
 
-	cell.yz += flow_in - flow_out;
-	float evap = config.evaporation*config.sim_rate;
-	cell.y -= evap;
-	cell.y = max(cell.y, 0.0);
+		cell.yz += flow_in - flow_out;
+		if(cell.y>0.0){
+			float evap = config.evaporation*config.sim_rate;
+			if(cell.y<config.evaporation_threshold){
+				evap *= cell.y/config.evaporation_threshold;
+			}
+			cell.y = max(0.0,cell.y-evap);
+		}
 
-	float current_capacity = cell.y * config.static_sediment_capacity + (flow_in.x + flow_out.x)/2.0 * config.kinetic_sediment_capacity;
-	float sediment_delta = current_capacity - cell.z;
-	if(sediment_delta>0){
-		sediment_delta *= config.erosion_rate * config.sim_rate;
-	}else{
-		sediment_delta *= config.deposition_rate * config.sim_rate;
+		//float erode = (flow_in.x + flow_out.x) * config.erosion_rate * config.sim_rate;
+		//erode *= cell.w*cell.w*cell.w;
+		//cell.x -= erode;
+		//cell.z += erode;
+		//float current_capacity = cell.y * config.sediment_capacity;
+		//float deposit = max(0.0, cell.z - current_capacity) * config.erosion_rate * config.sim_rate;
+		//cell.x += deposit;
+		//cell.z -= deposit;
+		
+
+		float current_capacity = (flow_in.x + flow_out.x) * config.sediment_capacity;
+		float sediment_delta = (current_capacity - cell.z) * config.sim_rate * config.erosion_rate;
+		//if(sediment_delta>0.0){
+			sediment_delta *= cell.w * cell.w * cell.w;
+		//}
+		
+		cell.z += sediment_delta;
+		cell.x -= sediment_delta;
+		
 	}
-	cell.z += sediment_delta;
-	cell.x -= sediment_delta;
 	
 	cell.x += gravity_erode(coord);
 

@@ -5,25 +5,21 @@ extends Node
 	set(to):
 		precipitation = to
 		config_buf_update=true
-@export_range(0.0,1,0.001,"or_greater") var evaporation:float = 0.0:
+@export_range(0.0,1,0.001,"or_greater") var evaporation:float = 0.1:
 	set(to):
 		evaporation = to
 		config_buf_update=true
-@export_range(0.0,1,0.001,"or_greater") var static_sediment_capacity:float = 0.01:
+@export_range(0.0,1,0.001,"or_greater") var evaporation_threshold:float = 0.01:
 	set(to):
-		static_sediment_capacity = to
+		evaporation_threshold = to
 		config_buf_update=true
-@export_range(0.0,1,0.001,"or_greater") var kinetic_sediment_capacity:float = 0.5:
+@export_range(0.0,1,0.001,"or_greater") var sediment_capacity:float = 0.5:
 	set(to):
-		kinetic_sediment_capacity = to
+		sediment_capacity = to
 		config_buf_update=true
 @export_range(0.0,1,0.001,"or_greater") var erosion_rate:float = 0.1:
 	set(to):
 		erosion_rate = to
-		config_buf_update=true
-@export_range(0.0,1,0.001,"or_greater") var deposition_rate:float = 0.1:
-	set(to):
-		deposition_rate = to
 		config_buf_update=true
 @export_range(0,4,0.001,"or_greater") var slope_of_repose:float = 1.0:
 	set(to):
@@ -97,13 +93,13 @@ func run(step_count:int)->void:
 		config_bytes.resize(36)
 		config_bytes.encode_float(0, precipitation/100000)
 		config_bytes.encode_float(4, evaporation/100000)
-		config_bytes.encode_float(8, static_sediment_capacity)
-		config_bytes.encode_float(12, kinetic_sediment_capacity)
+		config_bytes.encode_float(8, evaporation_threshold)
+		config_bytes.encode_float(12, sediment_capacity)
 		config_bytes.encode_float(16, erosion_rate)
-		config_bytes.encode_float(20, deposition_rate)
-		config_bytes.encode_float(24, slope_of_repose)
-		config_bytes.encode_float(28, gravity_rate)
-		config_bytes.encode_float(32, sim_rate)
+		config_bytes.encode_float(20, slope_of_repose)
+		config_bytes.encode_float(24, gravity_rate)
+		config_bytes.encode_float(28, sim_rate)
+		config_bytes.encode_float(32, main.buffers.map_scale)
 		device.buffer_update(config_buf, 0, 36, config_bytes)
 		config_buf_update = false
 	
@@ -139,7 +135,7 @@ func run(step_count:int)->void:
 	device.free_rid(uniform_set2)
 
 var is_paused:bool = true
-var current_step_count = 10
+var current_step_count:int = 10
 
 func _process(delta: float) -> void:
 	if(!is_paused):
@@ -162,3 +158,7 @@ func _process(delta: float) -> void:
 
 func _on_run_button_toggled(toggled_on: bool) -> void:
 	is_paused = !toggled_on
+
+
+func _on_buffers_changed() -> void:
+	config_buf_update=true

@@ -22,16 +22,19 @@ extends Node
 				
 				device.free_rid(old_terrain_rid)
 				device.free_rid(old_offhand_rid)
-				
-				if (get_tree().current_scene as Main).noise_node.auto_generate:
-					(get_tree().current_scene as Main).noise_node.generate_noise()
-				
-				
+			changed.emit()
+
+@export var map_scale:float = 10.0:
+	set(to):
+		map_scale = to
+		changed.emit()
 
 var device:RenderingDevice
 
 var terrain:Texture2DRD
 var offhand:Texture2DRD
+
+signal changed
 
 func _enter_tree() -> void:
 	device = RenderingServer.get_rendering_device()

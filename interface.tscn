@@ -133,8 +133,7 @@ glow_enabled = true
 render_priority = 0
 shader = ExtResource("7_ihefr")
 shader_parameter/height_texture = ExtResource("8_wjb41")
-shader_parameter/min_depth = 0.0
-shader_parameter/max_depth = 1.0
+shader_parameter/height_offset = 0.0
 shader_parameter/displacement = 1.0
 shader_parameter/use_bicubic = true
 
@@ -153,8 +152,7 @@ gradient = SubResource("Gradient_yg014")
 render_priority = 0
 shader = ExtResource("9_2m66s")
 shader_parameter/height_texture = ExtResource("8_wjb41")
-shader_parameter/min_depth = 0.0
-shader_parameter/max_depth = 1.0
+shader_parameter/height_offset = 0.0
 shader_parameter/displacement = 1.0
 shader_parameter/use_bicubic = true
 shader_parameter/gradient = SubResource("GradientTexture1D_bmdto")
@@ -526,6 +524,9 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("5_chom7")
 
+[connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" method="_on_buffers_changed"]
+[connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_buffers_changed"]
+[connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" method="_on_buffers_changed"]
 [connection signal="pressed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/GenerateButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_generate_button_pressed"]
 [connection signal="toggled" from="Interface/VBoxContainer/HSplitContainer/RightArea/Noise/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/AutoButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_auto_button_toggled"]
 [connection signal="toggled" from="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer/VBoxContainer/RunButton" to="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" method="_on_run_button_toggled"]

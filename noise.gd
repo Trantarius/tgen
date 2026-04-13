@@ -7,13 +7,13 @@ extends Node
 		config_buf_update=true
 		if(auto_generate && is_inside_tree()):
 			generate_noise()
-@export_range(1,8,1) var detail:int = 5:
+@export_range(1,8,1,"or_greater") var detail:int = 5:
 	set(to):
 		detail = to
 		config_buf_update=true
 		if(auto_generate && is_inside_tree()):
 			generate_noise()
-@export_range(0.01,100.0,0.00001,"exp") var noise_scale:float = 4.0:
+@export_range(0.01,100.0,0.00001,"exp") var noise_scale:float = 1.0:
 	set(to):
 		noise_scale = to
 		config_buf_update=true
@@ -36,7 +36,7 @@ var pipeline:RID
 func _enter_tree() -> void:
 	device = RenderingServer.get_rendering_device()
 	main = get_tree().current_scene as Main
-	config_buf = device.storage_buffer_create(12)
+	config_buf = device.storage_buffer_create(16)
 	
 	var shader_spirv:RDShaderSPIRV = shader_file.get_spirv()
 	shader_rid = device.shader_create_from_spirv(shader_spirv)
@@ -57,11 +57,12 @@ func generate_noise():
 	
 	if(config_buf_update):
 		var config_bytes:PackedByteArray = PackedByteArray()
-		config_bytes.resize(12)
+		config_bytes.resize(16)
 		config_bytes.encode_u32(0,random_seed)
 		config_bytes.encode_s32(4,detail)
-		config_bytes.encode_float(8,noise_scale)
-		device.buffer_update(config_buf, 0, 12, config_bytes)
+		config_bytes.encode_float(8,main.buffers.map_scale)
+		config_bytes.encode_float(12, noise_scale)
+		device.buffer_update(config_buf, 0, 16, config_bytes)
 	
 	var texform:RDTextureFormat = device.texture_get_format(main.buffers.terrain.texture_rd_rid)
 	
@@ -100,3 +101,9 @@ func _on_generate_button_pressed() -> void:
 
 func _on_auto_button_toggled(toggled_on: bool) -> void:
 	auto_generate = toggled_on
+
+
+func _on_buffers_changed() -> void:
+	config_buf_update=true
+	if(auto_generate):
+		generate_noise()
