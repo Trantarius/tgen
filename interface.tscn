@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dgegs0dtbn72s" path="res://main.gd" id="1_bmdto"]
 [ext_resource type="StyleBox" uid="uid://dfwlv00bf1k7m" path="res://interface/background_style.tres" id="1_oi7g3"]
 [ext_resource type="Shader" uid="uid://bf5c0w5k5wofa" path="res://topographical.gdshader" id="3_pt1ru"]
+[ext_resource type="Script" uid="uid://te4ovtekymfn" path="res://file_menu.gd" id="4_4xt2l"]
 [ext_resource type="StyleBox" uid="uid://cnnj0pugoqttd" path="res://interface/border_only_style.tres" id="5_chom7"]
 [ext_resource type="Script" uid="uid://cv7hnk17cw6vi" path="res://panning_camera.gd" id="5_pxv5b"]
 [ext_resource type="Script" uid="uid://b7mkn2he0sliv" path="res://topographical_view.gd" id="5_yg014"]
@@ -204,11 +205,8 @@ buffers = NodePath("Interface/VBoxContainer/HSplitContainer/RightArea/Buffers")
 noise_node = NodePath("Interface/VBoxContainer/HSplitContainer/RightArea/Noise")
 
 [node name="Interface" type="PanelContainer" parent="." unique_id=2051455482]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 theme = ExtResource("1_4rbkc")
 theme_override_styles/panel = ExtResource("1_oi7g3")
 
@@ -221,7 +219,7 @@ layout_mode = 2
 [node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer/HBoxContainer" unique_id=2086594373]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=933748359]
+[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=933748359 node_paths=PackedStringArray("dialog")]
 item_count = 3
 item_0/text = "Save"
 item_0/id = 0
@@ -229,12 +227,8 @@ item_1/text = "Load"
 item_1/id = 1
 item_2/text = "Save Buffer..."
 item_2/id = 2
-
-[node name="Erosion" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=588398055]
-auto_translate_mode = 1
-
-[node name="PopupMenu3" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=487240318]
-auto_translate_mode = 1
+script = ExtResource("4_4xt2l")
+dialog = NodePath("../../../../../FileDialog")
 
 [node name="StatusLabel" type="Label" parent="Interface/VBoxContainer/HBoxContainer" unique_id=620391799]
 layout_mode = 2
@@ -251,10 +245,9 @@ split_offset = 1520
 [node name="CenterArea" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer" unique_id=1766175944]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_bmdto")
-current_tab = 1
+current_tab = 0
 
 [node name="Topographical" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=1190178662]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 split_offsets = PackedInt32Array(250)
@@ -277,7 +270,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer/ScrollContainer/MarginContainer" unique_id=1144964354 node_paths=PackedStringArray("node")]
-custom_minimum_size = Vector2(101, 0)
+custom_minimum_size = Vector2(243, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -300,8 +293,8 @@ stretch = true
 
 [node name="TopographicalView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer" unique_id=1153580157]
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 0
+size = Vector2i(1268, 1004)
+render_target_update_mode = 4
 script = ExtResource("5_yg014")
 
 [node name="Land" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=975882727]
@@ -319,6 +312,7 @@ scale = Vector2(3, 3)
 texture = SubResource("PlaceholderTexture2D_2m66s")
 
 [node name="Sediment" type="TextureRect" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/Topographical/PanelContainer2/SubViewportContainer/TopographicalView" unique_id=32388269]
+visible = false
 texture_filter = 1
 material = SubResource("ShaderMaterial_yg014")
 offset_right = 256.0
@@ -331,6 +325,7 @@ position = Vector2(960, 540)
 script = ExtResource("5_pxv5b")
 
 [node name="3D" type="HSplitContainer" parent="Interface/VBoxContainer/HSplitContainer/CenterArea" unique_id=533369853]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 split_offsets = PackedInt32Array(250)
@@ -376,8 +371,8 @@ stretch = true
 
 [node name="3DView" type="SubViewport" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer" unique_id=1832977369]
 handle_input_locally = false
-size = Vector2i(1269, 1004)
-render_target_update_mode = 4
+size = Vector2i(2, 2)
+render_target_update_mode = 0
 script = ExtResource("8_yg014")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" unique_id=224464294]
@@ -510,7 +505,7 @@ toggle_mode = true
 text = "Run"
 
 [node name="NodeInspector" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion/ScrollContainer/MarginContainer/VBoxContainer" unique_id=687042928 node_paths=PackedStringArray("node")]
-custom_minimum_size = Vector2(209, 0)
+custom_minimum_size = Vector2(184, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_wjb41")
@@ -524,6 +519,15 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("5_chom7")
 
+[node name="FileDialog" type="FileDialog" parent="." unique_id=877387961]
+oversampling_override = 1.0
+position = Vector2i(343, 117)
+size = Vector2i(912, 583)
+theme = ExtResource("1_4rbkc")
+access = 2
+filters = PackedStringArray("*.exr;EXR;image/x-exr", "*.png;PNG;image/png", "*.jpeg,*.jpg;JPEG;image/jpeg", "*.webp;WEBP;image/webp")
+
+[connection signal="id_pressed" from="Interface/VBoxContainer/HBoxContainer/MenuBar/File" to="Interface/VBoxContainer/HBoxContainer/MenuBar/File" method="_on_id_pressed"]
 [connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/CenterArea/3D/PanelContainer2/SubViewportContainer/3DView" method="_on_buffers_changed"]
 [connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/RightArea/Noise" method="_on_buffers_changed"]
 [connection signal="changed" from="Interface/VBoxContainer/HSplitContainer/RightArea/Buffers" to="Interface/VBoxContainer/HSplitContainer/RightArea/Erosion" method="_on_buffers_changed"]
