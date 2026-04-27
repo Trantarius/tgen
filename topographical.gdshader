@@ -89,6 +89,8 @@ void fragment() {
 		NORMAL = normalize(vec3((h_left-h)*zoom.x, (h_up-h)*zoom.y,1.0/normal_depth));
 	}
 	
+	COLOR.a = 1.0;
+	
 		
 	
 	// Called for every pixel the material is visible on.

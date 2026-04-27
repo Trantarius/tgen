@@ -219,7 +219,7 @@ layout_mode = 2
 [node name="MenuBar" type="MenuBar" parent="Interface/VBoxContainer/HBoxContainer" unique_id=2086594373]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=933748359 node_paths=PackedStringArray("dialog")]
+[node name="File" type="PopupMenu" parent="Interface/VBoxContainer/HBoxContainer/MenuBar" unique_id=933748359]
 item_count = 3
 item_0/text = "Save"
 item_0/id = 0
@@ -228,7 +228,6 @@ item_1/id = 1
 item_2/text = "Save Buffer..."
 item_2/id = 2
 script = ExtResource("4_4xt2l")
-dialog = NodePath("../../../../../FileDialog")
 
 [node name="StatusLabel" type="Label" parent="Interface/VBoxContainer/HBoxContainer" unique_id=620391799]
 layout_mode = 2
@@ -252,7 +251,6 @@ layout_mode = 2
 theme_override_constants/separation = 0
 split_offsets = PackedInt32Array(250)
 drag_area_offset = 1
-drag_area_highlight_in_editor = true
 split_offset = 250
 metadata/_tab_index = 0
 
@@ -330,7 +328,6 @@ layout_mode = 2
 theme_override_constants/separation = 0
 split_offsets = PackedInt32Array(250)
 drag_area_offset = 1
-drag_area_highlight_in_editor = true
 split_offset = 250
 metadata/_tab_index = 1
 
